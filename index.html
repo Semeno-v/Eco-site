@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+  <!-- Preconnect for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&family=Raleway:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    integrity="sha512-Avb2QiuTy/Sz2RIHxBE8xEKEFjBjKrHMQAWwEqUFWBDxvCWwbRMzPtRLVlpyJVEolOlhJrRnBVjRRBrUakRVA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer">
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css">
+
+  <title>EcoGroup — Экология это важно</title>
+
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="57x57"  href="apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60"  href="apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72"  href="apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76"  href="apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="96x96"  href="favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="32x32"  href="favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16"  href="favicon-16x16.png">
+  <link rel="manifest" href="manifest.json">
+  <meta name="msapplication-TileColor" content="#16a34a">
+  <meta name="msapplication-TileImage" content="ms-icon-144x144.png">
+  <meta name="theme-color" content="#16a34a">
+
+  <!-- SEO -->
+  <meta name="description" content="EcoGroup — информационный сайт об экологии. Узнайте об экологических проблемах, правилах сортировки отходов и способах помочь природе.">
+  <meta name="keywords" content="экология, природа, окружающая среда, сортировка мусора, экологические проблемы, переработка">
+  <meta name="googlebot" content="notranslate">
+
+  <!-- Open Graph / социальные сети -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="EcoGroup — Экология это важно">
+  <meta property="og:description" content="Узнайте об экологических проблемах, правилах сортировки отходов и пройдите тест на экологическую грамотность.">
+  <meta property="og:image"       content="img/main.png">
+  <meta property="og:locale"      content="ru_RU">
+  <meta name="twitter:card"       content="summary_large_image">
+  <meta name="twitter:title"      content="EcoGroup — Экология это важно">
+  <meta name="twitter:description" content="Узнайте об экологических проблемах, правилах сортировки отходов и пройдите тест.">
+  <meta name="twitter:image"      content="img/main.png">
+</head>
+
+<body>
+  <!-- Scroll progress indicator -->
+  <div id="scrollProgress" aria-hidden="true"></div>
+
+  <div class="wrapper">
+
+    <!-- ========== BACK TO TOP ========== -->
+    <button id="buttonUp" aria-label="Наверх">
+      <svg viewBox="0 0 18 18" aria-hidden="true">
+        <polyline points="3,12 9,6 15,12"/>
+      </svg>
+    </button>
+
+    <!-- ========== HEADER ========== -->
+    <header class="header" id="top">
+      <div class="header__container">
+        <a href="#ecomain" class="header__logo">
+          <svg class="logo-icon" viewBox="0 0 32 32" aria-hidden="true">
+            <circle cx="16" cy="16" r="15" fill="#22c55e"/>
+            <path d="M10 19c5-9 11-10 15-8 -2 7-6 13-15 17 4-4 5-8 5-11 -3 1-4 1-5 2z" fill="#e8f5e9" opacity=".95"/>
+          </svg>
+          <span class="header__logo-text">Eco Group</span>
+        </a>
+
+        <nav class="header__menu" aria-label="Основная навигация" id="mobileMenu">
+          <ul class="menu__list">
+            <li class="menu__item">
+              <a href="#ecomain"     class="menu__link">Главная</a>
+            </li>
+            <li class="menu__item">
+              <a href="#ecotrash"    class="menu__link">Сортировка</a>
+            </li>
+            <li class="menu__item">
+              <a href="#ecoproblems" class="menu__link">Эко-проблемы</a>
+            </li>
+            <li class="menu__item">
+              <a href="#about"       class="menu__link">О нас</a>
+            </li>
+          </ul>
+          <!-- Visible only inside mobile panel -->
+          <div class="menu__panel-footer">
+            <a href="https://forms.yandex.ru/u/6435616ef47e731347977ffd/"
+               class="btn btn--glow" target="_blank" rel="noopener noreferrer">
+              Пройти тест <i class="fas fa-arrow-right"></i>
+            </a>
+            <a href="mailto:ecogroup.official@mail.ru" class="menu__panel-mail">
+              <i class="fas fa-envelope"></i> ecogroup.official@mail.ru
+            </a>
+          </div>
+        </nav>
+
+        <div class="header__actions">
+          <a href="https://forms.yandex.ru/u/6435616ef47e731347977ffd/"
+             class="btn btn--primary header__test-btn" target="_blank" rel="noopener noreferrer">
+            Пройти тест
+          </a>
+          <button class="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenu">
+            <span class="burger__line burger__line--top"></span>
+            <span class="burger__line burger__line--mid"></span>
+            <span class="burger__line burger__line--bot"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile menu overlay -->
+    <div id="menuOverlay" aria-hidden="true"></div>
+
+    <!-- ========== MAIN ========== -->
+    <main>
+
+      <!-- HERO -->
+      <section class="hero" id="ecomain">
+        <div class="hero__container">
+
+          <div class="hero__text" data-aos="fade-right">
+            <span class="hero__badge">🌿 Экология — это важно</span>
+            <h1 class="hero__title">
+              Проблема <span>экологии</span> — наша проблема!
+            </h1>
+            <p class="hero__desc">
+              Мы полностью зависим от окружающей среды, поэтому нам бережно следует к ней относиться!
+            </p>
+            <div class="hero__cta">
+              <a href="#ecotrash" class="btn btn--primary">
+                Узнать больше
+              </a>
+              <a href="https://forms.yandex.ru/u/6435616ef47e731347977ffd/"
+                 class="btn btn--outline" target="_blank" rel="noopener noreferrer">
+                Пройти тест <i class="fas fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="hero__media" data-aos="fade-left" data-aos-delay="150">
+            <div class="hero__img-wrap">
+              <img src="img/main.png" alt="Уход за природой" loading="eager">
+            </div>
+          </div>
+
+          <div class="hero__qr" data-aos="fade-up" data-aos-delay="350">
+            <div class="hero__qr-header">
+              <span class="hero__qr-icon">📲</span>
+              <span class="hero__qr-title">Пройти экологический тест</span>
+            </div>
+            <div class="hero__qr-body">
+              <div class="hero__qr-frame">
+                <img src="img/Video.gif" alt="QR-код для теста" loading="lazy">
+              </div>
+              <div class="hero__qr-info">
+                <p class="hero__qr-desc">Наведи камеру телефона на QR-код — тест откроется автоматически!</p>
+                <a href="https://forms.yandex.ru/u/6435616ef47e731347977ffd/"
+                   target="_blank" rel="noopener noreferrer" class="hero__qr-link">
+                  Открыть тест <i class="fas fa-external-link-alt"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ECO RULES -->
+      <section class="rules" id="rules">
+        <div class="rules__container">
+          <div class="section-head" data-aos="fade-up">
+            <span class="section-badge">Правила</span>
+            <h2 class="section-title"><span>Экологические</span> правила</h2>
+            <p class="section-desc">
+              Если каждый будет стараться следовать основным правилам экологии,
+              мы сможем сделать этот мир лучше!
+            </p>
+          </div>
+
+          <div class="rules__grid">
+            <div class="rule-card" data-aos="fade-up" data-aos-delay="0">
+              <div class="rule-card__icon">
+                <img src="img/item_1.png" alt="Личная ответственность перед природой">
+              </div>
+              <h3 class="rule-card__title">Личная ответственность</h3>
+              <p class="rule-card__text">
+                В основе экологической морали лежит положение, что люди являются такой же частью
+                окружающего мира, как растения и животные. Крайне важно, чтобы каждый человек
+                уважительно и бережно относился ко всем живым существам.
+              </p>
+            </div>
+
+            <div class="rule-card" data-aos="fade-up" data-aos-delay="100">
+              <div class="rule-card__icon">
+                <img src="img/item_2.png" alt="Не причинять вред природе">
+              </div>
+              <h3 class="rule-card__title">Не причинять вред</h3>
+              <p class="rule-card__text">
+                Человек не должен противопоставлять себя природе и стремиться к её разрушению.
+                Из-за деятельности человека появилась «Чёрная Книга», в которую занесены все
+                животные, которых мы больше никогда не увидим.
+              </p>
+            </div>
+
+            <div class="rule-card" data-aos="fade-up" data-aos-delay="200">
+              <div class="rule-card__icon">
+                <img src="img/item_3.png" alt="Помогать жизни и природе">
+              </div>
+              <h3 class="rule-card__title">Помогать жизни</h3>
+              <p class="rule-card__text">
+                Каждый должен стараться поддерживать здоровую экологическую обстановку для всех
+                людей, животных, птиц, рыб и растений. Человек должен найти разумное сочетание
+                растущего воздействия на природу с заботой о ней.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TRASH SORTING -->
+      <section class="trash" id="ecotrash">
+        <div class="trash__container">
+          <div class="section-head" data-aos="fade-up">
+            <span class="section-badge">Сортировка</span>
+            <h2 class="section-title">Как <span>правильно</span> сортировать отходы?</h2>
+            <p class="section-desc">
+              Конституция РФ гласит: «Каждый обязан сохранять природу и окружающую среду».
+              Разделение мусора позволяет использовать ресурсы повторно, не исчерпывая запас новых.
+            </p>
+          </div>
+
+          <div class="trash__grid">
+            <div class="trash-card" data-aos="zoom-in" data-aos-delay="0">
+              <div class="trash-card__icon">
+                <img src="img/trash/trash_can_1.png" alt="Бумага">
+              </div>
+              <h3 class="trash-card__title">Бумажные отходы</h3>
+              <p class="trash-card__text">
+                Перед сдачей необходимо избавить бумагу от скрепок и пластиковых элементов,
+                плотно спрессовать. Принимаются гофрированный картон, книги, тетради, газеты,
+                офисная бумага.
+              </p>
+              <span class="trash-card__tag">♻️ Перерабатывается</span>
+            </div>
+
+            <div class="trash-card" data-aos="zoom-in" data-aos-delay="80">
+              <div class="trash-card__icon">
+                <img src="img/trash/trash_can_2.png" alt="Металл">
+              </div>
+              <h3 class="trash-card__title">Металлические отходы</h3>
+              <p class="trash-card__text">
+                Необходимо очистить металл от пищевых отходов, промыть и удалить этикетки.
+                Принимаются лом, инструменты, гвозди, проволока, консервные банки и крышки.
+              </p>
+              <span class="trash-card__tag">♻️ Перерабатывается</span>
+            </div>
+
+            <div class="trash-card" data-aos="zoom-in" data-aos-delay="160">
+              <div class="trash-card__icon">
+                <img src="img/trash/trash_can_4.png" alt="Стекло">
+              </div>
+              <h3 class="trash-card__title">Стеклянные отходы</h3>
+              <p class="trash-card__text">
+                Необходимо промыть стекло, удалить этикетки, крышки и пластиковые элементы.
+                Принимаются бутылки, банки, стеклянные тары всех видов.
+              </p>
+              <span class="trash-card__tag">♻️ Перерабатывается</span>
+            </div>
+
+            <div class="trash-card" data-aos="zoom-in" data-aos-delay="240">
+              <div class="trash-card__icon">
+                <img src="img/trash/trash_can_5.png" alt="Пластик">
+              </div>
+              <h3 class="trash-card__title">Пластмассовые отходы</h3>
+              <p class="trash-card__text">
+                Необходимо промыть, удалить плёнку и этикетки, желательно смять для уменьшения
+                объёма. Принимаются бутылки, контейнеры для еды, одноразовая посуда.
+              </p>
+              <span class="trash-card__tag">♻️ Перерабатывается</span>
+            </div>
+          </div>
+
+          <div class="trash__note" data-aos="fade-up">
+            <i class="fas fa-info-circle"></i>
+            Остальные отходы (бахилы, чайные пакетики, CD/DVD диски, пищевые отходы) подвержены
+            исключительно сожжению без возможности переработки. Решение экологических проблем
+            зависит от воли и намерений самого человечества.
+          </div>
+        </div>
+      </section>
+
+      <!-- ECO PROBLEMS -->
+      <section class="problems" id="ecoproblems">
+        <div class="problems__container">
+          <div class="section-head" data-aos="fade-up">
+            <span class="section-badge">Проблемы</span>
+            <h2 class="section-title"><span>Экологические</span> проблемы человечества</h2>
+            <p class="section-desc">
+              Шесть ключевых угроз, с которыми столкнулась наша планета
+            </p>
+          </div>
+
+          <div class="problems__list">
+
+            <article class="problem-item" data-aos="fade-up">
+              <div class="problem-item__media">
+                <img src="img/illustration/illustration_1.png" alt="Таяние ледников" loading="lazy">
+              </div>
+              <div class="problem-item__body">
+                <span class="problem-item__num">01</span>
+                <h3 class="problem-item__title">Таяние ледников</h3>
+                <p>
+                  С каждым годом уровень воды значительно повышается в Мировом океане.
+                  Выбросы парниковых газов увеличивают температуру воздуха, и если мировое
+                  сообщество не повлияет на объёмы этих выбросов, через 80 лет можно ожидать
+                  повышения уровня Мирового океана на 2,5 метра, что поглотит прибрежные
+                  населённые пункты и некоторые острова.
+                </p>
+              </div>
+            </article>
+
+            <article class="problem-item problem-item--reverse" data-aos="fade-up">
+              <div class="problem-item__media">
+                <img src="img/illustration/illustration_2.png" alt="Загрязнение сточными водами" loading="lazy">
+              </div>
+              <div class="problem-item__body">
+                <span class="problem-item__num">02</span>
+                <h3 class="problem-item__title">Загрязнение сточными водами</h3>
+                <p>
+                  Запас пресной воды во всём мире катастрофически мал — всего 3%. Этого уже сейчас
+                  недостаточно для обеспечения всего населения питьевой водой. При сохранении
+                  тенденции загрязнения водные запасы планеты иссякнут к 2050 году.
+                  Необходима полномасштабная поддержка инициатив по очистке воды.
+                </p>
+              </div>
+            </article>
+
+            <article class="problem-item" data-aos="fade-up">
+              <div class="problem-item__media">
+                <img src="img/illustration/illustration_3.png" alt="Загрязнение воздуха" loading="lazy">
+              </div>
+              <div class="problem-item__body">
+                <span class="problem-item__num">03</span>
+                <h3 class="problem-item__title">Загрязнение воздуха</h3>
+                <p>
+                  Промышленные предприятия и транспорт выбрасывают в атмосферу более 30 миллиардов
+                  тонн углекислого газа ежегодно. Это разрушает озоновый слой и провоцирует
+                  респираторные заболевания, аллергии и нарушения репродуктивной функции.
+                  Загрязнение воздуха также повышает кислотность питьевой воды.
+                </p>
+              </div>
+            </article>
+
+            <article class="problem-item problem-item--reverse" data-aos="fade-up">
+              <div class="problem-item__media">
+                <img src="img/illustration/illustration_4.png" alt="Обезлесение" loading="lazy">
+              </div>
+              <div class="problem-item__body">
+                <span class="problem-item__num">04</span>
+                <h3 class="problem-item__title">Обезлесение</h3>
+                <p>
+                  Леса составляют около 85% фитомассы мира. Одно дерево производит около
+                  120 кг кислорода в год. Когда лес вырубают без восстановления, исчезает барьер
+                  против оползней и эрозии почв, нарушается очистка атмосферы. Не случайно
+                  по всему миру проводятся акции «Посади своё дерево».
+                </p>
+              </div>
+            </article>
+
+            <article class="problem-item" data-aos="fade-up">
+              <div class="problem-item__media">
+                <img src="img/illustration/illustration_5.png" alt="Вымирающие виды животных" loading="lazy">
+              </div>
+              <div class="problem-item__body">
+                <span class="problem-item__num">05</span>
+                <h3 class="problem-item__title">Вымирающие виды животных</h3>
+                <p>
+                  В Красную Книгу занесены сотни видов животных и растений, находящихся на стадии
+                  вымирания. Из-за необдуманных действий людей нарушается природный баланс, что
+                  приводит к катастрофическим последствиям. Меры по сохранению редких видов
+                  предпринимаются на региональном, государственном и международном уровнях.
+                </p>
+              </div>
+            </article>
+
+            <article class="problem-item problem-item--reverse" data-aos="fade-up">
+              <div class="problem-item__media">
+                <img src="img/illustration/illustration_6.png" alt="Истощение природных ресурсов" loading="lazy">
+              </div>
+              <div class="problem-item__body">
+                <span class="problem-item__num">06</span>
+                <h3 class="problem-item__title">Истощение природных ресурсов</h3>
+                <p>
+                  Ежегодно из недр Земли извлекается 100 миллиардов тонн минеральных ресурсов,
+                  из которых 90 миллиардов тонн превращается в отходы. По прогнозам, при
+                  сохранении тенденций запасы истощатся через 70 лет. Этой проблемой должен
+                  заниматься каждый человек на планете!
+                </p>
+              </div>
+            </article>
+
+          </div>
+
+          <!-- Conclusion -->
+          <div class="problems__conclusion" data-aos="fade-up">
+            <div class="problems__conclusion-img">
+              <img src="img/illustration/ecology_1.png" alt="Выводы об экологии" loading="lazy">
+            </div>
+            <blockquote class="problems__conclusion-quote">
+              <p>
+                Изменить своё отношение к природе вовсе не означает, что следует отказаться
+                от технического прогресса. Пришло время что-то делать с горами мусора,
+                браконьерством, загрязнением воздуха и Мирового океана!
+              </p>
+              <p>
+                <strong>Только объединив усилия, мы в силах сохранить нашу планету.</strong>
+              </p>
+            </blockquote>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="footer" id="about">
+      <div class="footer__container">
+        <div class="footer__grid">
+
+          <div class="footer__col" data-aos="fade-up">
+            <div class="footer__logo">
+              <svg class="logo-icon" viewBox="0 0 32 32" aria-hidden="true">
+                <circle cx="16" cy="16" r="15" fill="#22c55e"/>
+                <path d="M10 19c5-9 11-10 15-8 -2 7-6 13-15 17 4-4 5-8 5-11 -3 1-4 1-5 2z" fill="#e8f5e9" opacity=".9"/>
+              </svg>
+              <span class="footer__logo-text">Eco Group</span>
+            </div>
+            <p class="footer__about">
+              <strong>Eco Group</strong> — информационно-образовательная среда, созданная
+              в рамках проектной деятельности. Наша задача: информирование о положении
+              в сфере экологических проблем и содействие росту экологической культуры общества.
+              Сайт имеет исключительно познавательный характер.
+            </p>
+            <a href="mailto:ecogroup.official@mail.ru" class="footer__mail">
+              <i class="fas fa-envelope"></i> ecogroup.official@mail.ru
+            </a>
+          </div>
+
+          <div class="footer__col" data-aos="fade-up" data-aos-delay="80">
+            <p class="footer__col-title">Навигация</p>
+            <ul class="footer__nav">
+              <li><a href="#ecomain">Главная</a></li>
+              <li><a href="#ecotrash">Сортировка отходов</a></li>
+              <li><a href="#ecoproblems">Эко-проблемы</a></li>
+              <li>
+                <a href="https://forms.yandex.ru/u/6435616ef47e731347977ffd/"
+                   target="_blank" rel="noopener noreferrer">
+                  Пройти тест <i class="fas fa-external-link-alt" style="font-size:10px"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="footer__col" data-aos="fade-up" data-aos-delay="160">
+            <p class="footer__col-title">Ответственность</p>
+            <p class="footer__disclaimer">
+              Администрация ресурса не несёт ответственности за различные трактовки
+              представленных материалов и действия пользователей, связанных с использованием
+              и распространением материалов сайта.
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+    </footer>
+
+  </div><!-- .wrapper -->
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="js/top.js"></script>
+</body>
+</html>
