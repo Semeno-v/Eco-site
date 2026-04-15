@@ -3,10 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <!-- Anti-FOUC: light by default, dark only if explicitly saved -->
+  <script>(function(){if(localStorage.getItem('eco-theme')==='dark')document.documentElement.classList.add('dark-theme');}());</script>
 
   <!-- Preconnect for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="https://unpkg.com">
+
+  <!-- Preload critical above-the-fold image -->
+  <link rel="preload" as="image" href="img/main.png">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&family=Raleway:wght@700;800;900&display=swap" rel="stylesheet">
@@ -58,9 +65,22 @@
   <meta name="twitter:title"      content="EcoGroup — Экология это важно">
   <meta name="twitter:description" content="Узнайте об экологических проблемах, правилах сортировки отходов и пройдите тест.">
   <meta name="twitter:image"      content="img/main.png">
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "EcoGroup",
+    "description": "Информационно-образовательная среда об экологических проблемах.",
+    "url": "https://ecogroup.ru",
+    "email": "ecogroup.official@mail.ru",
+    "knowsAbout": ["экология", "сортировка отходов", "экологические проблемы"]
+  }
+  </script>
 </head>
 
 <body>
+  <a href="#ecomain" class="skip-link">Перейти к содержимому</a>
   <!-- Scroll progress indicator -->
   <div id="scrollProgress" aria-hidden="true"></div>
 
@@ -105,6 +125,16 @@
                class="btn btn--glow" target="_blank" rel="noopener noreferrer">
               Пройти тест <i class="fas fa-arrow-right"></i>
             </a>
+            <!-- Theme toggle row -->
+            <div class="menu__theme-row">
+              <span class="menu__theme-label" id="menuThemeLabel">Тёмная тема</span>
+              <label class="theme-switch" aria-label="Переключить тему">
+                <input type="checkbox" class="theme-switch__input menu-theme-sync">
+                <span class="theme-switch__track">
+                  <span class="theme-switch__thumb"></span>
+                </span>
+              </label>
+            </div>
             <a href="mailto:ecogroup.official@mail.ru" class="menu__panel-mail">
               <i class="fas fa-envelope"></i> ecogroup.official@mail.ru
             </a>
@@ -116,6 +146,12 @@
              class="btn btn--primary header__test-btn" target="_blank" rel="noopener noreferrer">
             Пройти тест
           </a>
+          <label class="theme-switch" aria-label="Переключить тему" title="Переключить тему">
+            <input type="checkbox" id="themeSwitch" class="theme-switch__input">
+            <span class="theme-switch__track">
+              <span class="theme-switch__thumb"></span>
+            </span>
+          </label>
           <button class="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenu">
             <span class="burger__line burger__line--top"></span>
             <span class="burger__line burger__line--mid"></span>
@@ -156,7 +192,7 @@
 
           <div class="hero__media" data-aos="fade-left" data-aos-delay="150">
             <div class="hero__img-wrap">
-              <img src="img/main.png" alt="Уход за природой" loading="eager">
+              <img src="img/main.png" alt="Уход за природой" loading="eager" fetchpriority="high" decoding="sync">
             </div>
           </div>
 
@@ -167,7 +203,7 @@
             </div>
             <div class="hero__qr-body">
               <div class="hero__qr-frame">
-                <img src="img/Video.gif" alt="QR-код для теста" loading="lazy">
+                <img src="img/Video.gif" alt="QR-код для теста" loading="lazy" decoding="async">
               </div>
               <div class="hero__qr-info">
                 <p class="hero__qr-desc">Наведи камеру телефона на QR-код — тест откроется автоматически!</p>
@@ -321,7 +357,7 @@
 
             <article class="problem-item" data-aos="fade-up">
               <div class="problem-item__media">
-                <img src="img/illustration/illustration_1.png" alt="Таяние ледников" loading="lazy">
+                <img src="img/illustration/illustration_1.png" alt="Таяние ледников" loading="lazy" decoding="async">
               </div>
               <div class="problem-item__body">
                 <span class="problem-item__num">01</span>
@@ -338,13 +374,13 @@
 
             <article class="problem-item problem-item--reverse" data-aos="fade-up">
               <div class="problem-item__media">
-                <img src="img/illustration/illustration_2.png" alt="Загрязнение сточными водами" loading="lazy">
+                <img src="img/illustration/illustration_2.png" alt="Загрязнение сточными водами" loading="lazy" decoding="async">
               </div>
               <div class="problem-item__body">
                 <span class="problem-item__num">02</span>
                 <h3 class="problem-item__title">Загрязнение сточными водами</h3>
                 <p>
-                  Запас пресной воды во всём мире катастрофически мал — всего 3%. Этого уже сейчас
+                  Запас пресной воды во всём мире катастрофически мал — всего <span class="counter" data-to="3">3</span>%. Этого уже сейчас
                   недостаточно для обеспечения всего населения питьевой водой. При сохранении
                   тенденции загрязнения водные запасы планеты иссякнут к 2050 году.
                   Необходима полномасштабная поддержка инициатив по очистке воды.
@@ -354,13 +390,13 @@
 
             <article class="problem-item" data-aos="fade-up">
               <div class="problem-item__media">
-                <img src="img/illustration/illustration_3.png" alt="Загрязнение воздуха" loading="lazy">
+                <img src="img/illustration/illustration_3.png" alt="Загрязнение воздуха" loading="lazy" decoding="async">
               </div>
               <div class="problem-item__body">
                 <span class="problem-item__num">03</span>
                 <h3 class="problem-item__title">Загрязнение воздуха</h3>
                 <p>
-                  Промышленные предприятия и транспорт выбрасывают в атмосферу более 30 миллиардов
+                  Промышленные предприятия и транспорт выбрасывают в атмосферу более <span class="counter" data-to="30">30</span> миллиардов
                   тонн углекислого газа ежегодно. Это разрушает озоновый слой и провоцирует
                   респираторные заболевания, аллергии и нарушения репродуктивной функции.
                   Загрязнение воздуха также повышает кислотность питьевой воды.
@@ -370,13 +406,13 @@
 
             <article class="problem-item problem-item--reverse" data-aos="fade-up">
               <div class="problem-item__media">
-                <img src="img/illustration/illustration_4.png" alt="Обезлесение" loading="lazy">
+                <img src="img/illustration/illustration_4.png" alt="Обезлесение" loading="lazy" decoding="async">
               </div>
               <div class="problem-item__body">
                 <span class="problem-item__num">04</span>
                 <h3 class="problem-item__title">Обезлесение</h3>
                 <p>
-                  Леса составляют около 85% фитомассы мира. Одно дерево производит около
+                  Леса составляют около <span class="counter" data-to="85">85</span>% фитомассы мира. Одно дерево производит около
                   120 кг кислорода в год. Когда лес вырубают без восстановления, исчезает барьер
                   против оползней и эрозии почв, нарушается очистка атмосферы. Не случайно
                   по всему миру проводятся акции «Посади своё дерево».
@@ -386,7 +422,7 @@
 
             <article class="problem-item" data-aos="fade-up">
               <div class="problem-item__media">
-                <img src="img/illustration/illustration_5.png" alt="Вымирающие виды животных" loading="lazy">
+                <img src="img/illustration/illustration_5.png" alt="Вымирающие виды животных" loading="lazy" decoding="async">
               </div>
               <div class="problem-item__body">
                 <span class="problem-item__num">05</span>
@@ -402,13 +438,13 @@
 
             <article class="problem-item problem-item--reverse" data-aos="fade-up">
               <div class="problem-item__media">
-                <img src="img/illustration/illustration_6.png" alt="Истощение природных ресурсов" loading="lazy">
+                <img src="img/illustration/illustration_6.png" alt="Истощение природных ресурсов" loading="lazy" decoding="async">
               </div>
               <div class="problem-item__body">
                 <span class="problem-item__num">06</span>
                 <h3 class="problem-item__title">Истощение природных ресурсов</h3>
                 <p>
-                  Ежегодно из недр Земли извлекается 100 миллиардов тонн минеральных ресурсов,
+                  Ежегодно из недр Земли извлекается <span class="counter" data-to="100">100</span> миллиардов тонн минеральных ресурсов,
                   из которых 90 миллиардов тонн превращается в отходы. По прогнозам, при
                   сохранении тенденций запасы истощатся через 70 лет. Этой проблемой должен
                   заниматься каждый человек на планете!
@@ -421,7 +457,7 @@
           <!-- Conclusion -->
           <div class="problems__conclusion" data-aos="fade-up">
             <div class="problems__conclusion-img">
-              <img src="img/illustration/ecology_1.png" alt="Выводы об экологии" loading="lazy">
+              <img src="img/illustration/ecology_1.png" alt="Выводы об экологии" loading="lazy" decoding="async">
             </div>
             <blockquote class="problems__conclusion-quote">
               <p>

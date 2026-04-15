@@ -235,3 +235,117 @@
   window.addEventListener('load', update);
   update();
 })();
+
+/* =====================================================
+   Toast helper (used by multiple modules)
+   ===================================================== */
+window.showToast = function showToast(msg) {
+  const existing = document.querySelector('.toast');
+  if (existing) existing.remove();
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  requestAnimationFrame(() => requestAnimationFrame(() => t.classList.add('toast--in')));
+  setTimeout(() => {
+    t.classList.remove('toast--in');
+    t.addEventListener('transitionend', () => t.remove(), { once: true });
+  }, 2800);
+}
+
+/* =====================================================
+   Email copy — click to copy, fallback to mailto
+   ===================================================== */
+(function initEmailCopy() {
+  document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
+    link.addEventListener('click', e => {
+      if (!navigator.clipboard) return; // fallback: native mailto opens
+      e.preventDefault();
+      const email = link.getAttribute('href').replace('mailto:', '');
+      navigator.clipboard.writeText(email)
+        .then(() => showToast('📋 ' + email + ' — скопирован!'))
+        .catch(() => { window.location.href = link.href; });
+    });
+  });
+})();
+
+/* =====================================================
+   Animated counters — count up when visible
+   ===================================================== */
+(function initCounters() {
+  const counters = document.querySelectorAll('.counter[data-to]');
+  if (!counters.length) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const io = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const to  = parseFloat(el.dataset.to);
+      const dur = 1600;
+      const t0  = performance.now();
+      function tick(now) {
+        const p    = Math.min((now - t0) / dur, 1);
+        const ease = 1 - Math.pow(1 - p, 3); // ease-out cubic
+        el.textContent = Math.round(to * ease);
+        if (p < 1) requestAnimationFrame(tick);
+        else { el.textContent = to; obs.unobserve(el); }
+      }
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.6 });
+
+  counters.forEach(el => io.observe(el));
+})();
+
+/* =====================================================
+   Hero parallax — subtle depth on scroll (desktop only)
+   ===================================================== */
+(function initParallax() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (window.matchMedia('(max-width: 767px)').matches) return;
+  const img = document.querySelector('.hero__img-wrap img');
+  if (!img) return;
+  img.style.willChange = 'transform';
+  let raf = 0;
+  window.addEventListener('scroll', () => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      img.style.transform = `scale(1.08) translateY(${window.scrollY * 0.10}px)`;
+    });
+  }, { passive: true });
+})();
+
+/* =====================================================
+   Theme switch — simple, reliable day/night toggle
+   ===================================================== */
+(function initTheme() {
+  const html    = document.documentElement;
+  const KEY     = 'eco-theme';
+
+  function isDark() { return html.classList.contains('dark-theme'); }
+
+  function applyTheme(dark) {
+    html.classList.toggle('dark-theme', dark);
+    localStorage.setItem(KEY, dark ? 'dark' : 'light');
+    // Sync all checkboxes
+    document.querySelectorAll('.theme-switch__input').forEach(cb => { cb.checked = dark; });
+    // Sync menu label
+    const lbl = document.getElementById('menuThemeLabel');
+    if (lbl) lbl.textContent = dark ? 'Светлая тема' : 'Тёмная тема';
+  }
+
+  // Wire every switch checkbox
+  function bindSwitches() {
+    document.querySelectorAll('.theme-switch__input').forEach(cb => {
+      cb.checked = isDark();
+      cb.addEventListener('change', function() { applyTheme(this.checked); });
+    });
+  }
+
+  // Set initial state (anti-FOUC already applied class if needed)
+  bindSwitches();
+  // Sync label on load
+  const lbl = document.getElementById('menuThemeLabel');
+  if (lbl) lbl.textContent = isDark() ? 'Светлая тема' : 'Тёмная тема';
+})();
