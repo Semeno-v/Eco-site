@@ -6,20 +6,19 @@
 /* ===== CSS VARIABLES ===== */
 :root {
   --green-50:  #f0fdf4;
-  --green-100: #dcfce7;
+
   --green-200: #bbf7d0;
   --green-300: #86efac;
   --green-400: #4ade80;
   --green-500: #22c55e;
   --green-600: #16a34a;
   --green-700: #15803d;
-  --green-800: #166534;
-  --green-900: #14532d;
+
   --teal-400:  #2dd4bf;
   --teal-500:  #14b8a6;
   --slate-50:  #f8fafc;
   --slate-100: #f1f5f9;
-  --slate-200: #e2e8f0;
+
   --slate-400: #94a3b8;
   --slate-500: #64748b;
   --slate-600: #475569;
@@ -33,7 +32,7 @@
   --shadow-lg:    0 16px 48px rgba(0,0,0,.11), 0 4px 16px rgba(0,0,0,.06);
   --shadow-green: 0 8px 28px rgba(22,163,74,.30);
 
-  --r-sm:   8px;
+
   --r-md:   14px;
   --r-lg:   22px;
   --r-xl:   30px;
@@ -81,6 +80,25 @@ h1,h2,h3,h4,h5,h6 { line-height: 1.2; font-weight: inherit; }
 button { font-family: inherit; cursor: pointer; background: none; }
 :focus-visible {
   outline: 3px solid var(--green-500);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Component-specific focus rings for glassmorphism backgrounds */
+.burger:focus-visible {
+  outline: 2px solid var(--green-500);
+  outline-offset: 3px;
+  border-radius: var(--r-md);
+}
+.theme-switch:focus-within {
+  outline: 2px solid var(--green-500);
+  outline-offset: 3px;
+  border-radius: 15px;
+}
+.menu__link:focus-visible,
+.footer__mail:focus-visible,
+.footer__nav a:focus-visible {
+  outline: 2px solid var(--green-500);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -1056,27 +1074,181 @@ html.menu-open #menuOverlay { opacity: 1; pointer-events: auto; }
    BACK-TO-TOP — Glassmorphism Premium FAB
    ===================================================== */
 
-/* Spring entrance with overshoot */
+/* ╔══════════════════════════════════════════════════════════╗
+   ║  ULTRA-DYNAMIC — Button always readable, physics insane ║
+   ╚══════════════════════════════════════════════════════════╝ */
+
+/*
+   RULES FOR READABILITY:
+   - scale never below 0.72 during appearance
+   - rotate max ±8° (button tilts, not spins)
+   - filter blur stays on ::before rings only, NOT on #buttonUp
+   - brightness max 3× on the button itself (enhances, doesn't blind)
+*/
+
+/* ── APPEARANCE: rocket lands from above, spring physics ── */
 @keyframes btn-up-in {
-  0%   { opacity: 0;   transform: translateY(30px) scale(0.60); }
-  55%  { opacity: 1;   transform: translateY(-9px) scale(1.12); }
-  75%  { opacity: 1;   transform: translateY(4px)  scale(0.96); }
-  90%  { opacity: 1;   transform: translateY(-2px) scale(1.02); }
-  100% { opacity: 1;   transform: translateY(0)    scale(1);    }
+  0% {
+    opacity: 0;
+    transform: translateY(-60px) scale(0.55);
+    box-shadow: 0 0 0 0 rgba(134,239,172,0);
+  }
+  /* Button shoots in from above — already clearly visible */
+  20% {
+    opacity: 1;
+    transform: translateY(18px) scale(1.18);
+    filter: brightness(2.2) saturate(2.4);
+    box-shadow:
+      0 0 40px 18px rgba(134,239,172,.52),
+      0 0 80px 36px rgba(22,163,74,.28),
+      inset 0 0 28px rgba(255,255,255,.48);
+  }
+  /* Impact — squash on landing */
+  34% {
+    transform: translateY(6px) scale(1.10) scaleY(0.88);
+    filter: brightness(1.8) saturate(1.9);
+    box-shadow:
+      0 8px 50px 20px rgba(134,239,172,.38),
+      0 0 90px 38px rgba(22,163,74,.20);
+  }
+  /* Rebound overshoot upward */
+  50% {
+    transform: translateY(-10px) scale(0.94) scaleY(1.07);
+    filter: brightness(1.4) saturate(1.5);
+    box-shadow:
+      0 0 30px 12px rgba(134,239,172,.28),
+      0 0 60px 24px rgba(22,163,74,.14);
+  }
+  /* Settle with micro-bounces */
+  64% {
+    transform: translateY(4px) scale(1.03);
+    filter: brightness(1.15) saturate(1.2);
+  }
+  76% {
+    transform: translateY(-2px) scale(0.98);
+  }
+  86% {
+    transform: translateY(1px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: none;
+    box-shadow:
+      0  2px  6px  rgba(0,0,0,.18),
+      0  6px 20px  rgba(0,0,0,.14),
+      0 14px 44px  rgba(0,0,0,.10),
+      inset 0  2px  4px rgba(255,255,255,.42),
+      inset 0 -2px  8px rgba(0,0,0,.22);
+  }
 }
 
-/* Natural hide */
+/* ── Shockwave rings — blur here, NOT on the button ── */
+@keyframes ring-birth-1 {
+  0%   { transform: scale(1);   opacity: 0.95; border-color: rgba(253,224,71,.90); border-width: 3px; filter: blur(0); }
+  30%  { transform: scale(2.8); opacity: 0.60; border-color: rgba(134,239,172,.55); filter: blur(1px); }
+  65%  { transform: scale(5.0); opacity: 0.22; border-color: rgba(22,163,74,.20); filter: blur(3px); }
+  100% { transform: scale(7.5); opacity: 0;   filter: blur(6px); }
+}
+@keyframes ring-birth-2 {
+  0%   { transform: scale(0.6); opacity: 0; }
+  10%  { opacity: 0.80; border-color: rgba(134,239,172,.80); border-width: 2px; filter: blur(0); }
+  40%  { transform: scale(3.2); opacity: 0.42; filter: blur(2px); }
+  100% { transform: scale(6.5); opacity: 0; filter: blur(5px); }
+}
+
+/* Arrow materialises with a clean luminous pulse */
+@keyframes arrow-birth {
+  0%   { filter: drop-shadow(0 0 16px rgba(255,255,255,.95)) drop-shadow(0 0 32px rgba(253,224,71,.85)); }
+  30%  { filter: drop-shadow(0 0 10px rgba(255,255,255,.7))  drop-shadow(0 0 20px rgba(253,224,71,.6)); }
+  60%  { filter: drop-shadow(0 0 6px rgba(253,224,71,.5))    drop-shadow(0 0 12px rgba(134,239,172,.3)); }
+  100% {
+    filter:
+      drop-shadow(0 1px 2px rgba(0,0,0,.40))
+      drop-shadow(0 0 8px rgba(253,224,71,.35))
+      drop-shadow(0 0 16px rgba(134,239,172,.25));
+  }
+}
+
+/* ── DISAPPEARANCE: vacuum implosion — button compresses, flares, vanishes down ── */
 @keyframes btn-up-out {
-  from { opacity: 1; transform: translateY(0)   scale(1);    filter: blur(0); }
-  to   { opacity: 0; transform: translateY(14px) scale(0.84); filter: blur(3px); }
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: none;
+  }
+  /* Micro-suck before collapse */
+  14% {
+    transform: translateY(-4px) scale(1.06);
+    filter: brightness(1.6) saturate(2.2);
+    box-shadow:
+      0 0 24px 10px rgba(134,239,172,.42),
+      0 0 50px 22px rgba(22,163,74,.22);
+  }
+  /* Flare peak — still readable */
+  28% {
+    transform: translateY(-8px) scale(0.92) scaleY(1.08);
+    filter: brightness(2.8) saturate(3.8);
+    box-shadow:
+      0 0 50px 24px rgba(253,224,71,.70),
+      0 0 100px 48px rgba(22,163,74,.38),
+      inset 0 0 32px rgba(255,255,255,.55);
+    opacity: 1;
+  }
+  /* Accelerating fall */
+  52% {
+    transform: translateY(22px) scale(0.74) scaleY(0.82);
+    filter: brightness(1.2) saturate(1.6);
+    opacity: 0.75;
+  }
+  100% {
+    transform: translateY(48px) scale(0.40) scaleY(0.55);
+    filter: brightness(0.4) saturate(0.5);
+    opacity: 0;
+  }
 }
 
-/* Click launch: warm flash → rocket up → dissolve */
+/* ── LAUNCH: ignition squash → rocket streak → light-speed dissolve ── */
 @keyframes btn-up-launch {
-  0%   { opacity: 1; transform: translateY(0)     scale(1);    filter: brightness(1)   blur(0px) saturate(1);   }
-  18%  { opacity: 1; transform: translateY(0)     scale(1.18); filter: brightness(2.4) blur(0px) saturate(1.6); }
-  40%  { opacity: 1; transform: translateY(-16px) scale(1.08); filter: brightness(2.8) blur(0px) saturate(2);   }
-  100% { opacity: 0; transform: translateY(-100px) scale(0.35); filter: brightness(5)  blur(10px) saturate(2);  }
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1) scaleY(1);
+    filter: brightness(1);
+  }
+  /* Engine ignition — squash down first (Newton's 3rd law) */
+  12% {
+    transform: translateY(8px) scale(1.14) scaleY(0.78);
+    filter: brightness(2.8) saturate(3.5);
+    box-shadow:
+      0 16px 60px 28px rgba(253,224,71,.65),
+      0 0 80px 38px rgba(134,239,172,.40),
+      inset 0 0 40px rgba(255,255,255,.60);
+  }
+  /* Liftoff — stretches tall as it climbs, still identifiable */
+  28% {
+    transform: translateY(-28px) scale(0.88) scaleY(1.32);
+    filter: brightness(3.8) saturate(4.2);
+    box-shadow:
+      0 0 60px 28px rgba(253,224,71,.55),
+      0 0 100px 50px rgba(22,163,74,.30);
+    opacity: 1;
+  }
+  /* Supersonic — shape elongates to a streak */
+  52% {
+    transform: translateY(-90px) scale(0.60) scaleY(2.2);
+    filter: brightness(6) saturate(3) blur(2px);
+    opacity: 0.65;
+  }
+  78% {
+    transform: translateY(-170px) scale(0.28) scaleY(3.8);
+    filter: brightness(12) blur(6px);
+    opacity: 0.25;
+  }
+  100% {
+    transform: translateY(-260px) scale(0.06) scaleY(6);
+    filter: brightness(22) blur(14px);
+    opacity: 0;
+  }
 }
 
 /* Gold dust shimmer slow drift */
@@ -1131,7 +1303,7 @@ html.menu-open #menuOverlay { opacity: 1; pointer-events: auto; }
   z-index: 50;
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
 
   opacity: 0;
   visibility: hidden;
@@ -1194,26 +1366,58 @@ html.menu-open #menuOverlay { opacity: 1; pointer-events: auto; }
     drop-shadow(0 0 16px rgba(134,239,172,.25));
 }
 
-/* ---- Visible state ---- */
+/* ── Ring pseudo-elements (shockwave emitters) ── */
+#buttonUp::before,
+#buttonUp::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  pointer-events: none;
+  border-style: solid;
+  border-width: 2px;
+  border-color: transparent;
+}
+/* Third ring via outline (no extra element needed) */
+#buttonUp {
+  outline: 2px solid transparent;
+  outline-offset: 0;
+}
+
+/* Shockwave rings fire on appearance */
+#buttonUp.btn-up--in::before {
+  animation: ring-birth-1 1.0s cubic-bezier(.22,1,.36,1) both;
+}
+#buttonUp.btn-up--in::after {
+  animation: ring-birth-2 1.15s cubic-bezier(.22,1,.36,1) .08s both;
+}
+
+/* Button entrance — lands from above */
 #buttonUp.btn-up--in {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  animation: btn-up-in .62s cubic-bezier(.34,1.56,.64,1) both;
+  animation: btn-up-in .82s cubic-bezier(.22,1,.36,1) both;
 }
 
-/* ---- Natural hide state ---- */
+/* Arrow glow pulse — shape always opaque, only glow animates */
+#buttonUp.btn-up--in svg {
+  animation: arrow-birth .82s ease-out both;
+}
+
+/* ---- Natural hide state — implosion + fall ---- */
 #buttonUp.btn-up--out {
   visibility: visible;
   pointer-events: none;
-  animation: btn-up-out .28s ease-in both;
+  animation: btn-up-out .42s cubic-bezier(.4,0,1,1) both;
 }
 
-/* ---- Launch (click) ---- */
+/* ---- Launch (click) — ignition → rocket ---- */
 #buttonUp.btn-up--launch {
   visibility: visible;
   pointer-events: none;
-  animation: btn-up-launch .58s cubic-bezier(.4,0,.8,.6) both;
+  animation: btn-up-launch .68s cubic-bezier(.4,0,.6,1) both;
 }
 
 /* ---- Hover ---- */
@@ -1331,22 +1535,34 @@ html.menu-open #menuOverlay { opacity: 1; pointer-events: auto; }
   .header__menu {
     position: fixed;
     inset: 0;
+    /* Dark mode: deep forest */
     background:
       radial-gradient(ellipse 60% 50% at 20% 90%, rgba(45,212,191,.13) 0%, transparent 55%),
       radial-gradient(ellipse 55% 55% at 85% 8%,  rgba(74,222,128,.15) 0%, transparent 55%),
       #050f08;
     transform: translateX(100%);
-    transition: transform .46s var(--ease-ios);
-    /* Must be BELOW header (z-index 200), above overlay (148) */
+    transition: transform .46s var(--ease-ios), background .4s ease;
     z-index: 149;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     display: flex;
     flex-direction: column;
-    /* Top padding = header height + small gap */
     padding: calc(var(--header-h) + 16px) 40px 40px;
     justify-content: flex-start;
   }
+
+  /* Light mode panel — airy premium glass */
+  html:not(.dark-theme) .header__menu {
+    background:
+      radial-gradient(ellipse 70% 45% at 15% 95%, rgba(134,239,172,.18) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 50% at 88% 5%,  rgba(74,222,128,.12) 0%, transparent 55%),
+      rgba(250,253,250,.94);
+    backdrop-filter: blur(32px) saturate(160%);
+    -webkit-backdrop-filter: blur(32px) saturate(160%);
+    border-left: 1px solid rgba(134,239,172,.22);
+    box-shadow: -8px 0 40px rgba(0,0,0,.08);
+  }
+
   html.menu-open .header__menu { transform: translateX(0); }
 
   /* Show nav list inside panel */
@@ -1356,9 +1572,8 @@ html.menu-open #menuOverlay { opacity: 1; pointer-events: auto; }
     align-items: stretch;
     justify-content: flex-start;
     gap: 0;
-    /* NO flex:1 — don't let list expand and push footer away */
     flex: 0 0 auto;
-    padding: 0 0 0;
+    padding: 0;
     counter-reset: navcount;
   }
 
@@ -1369,7 +1584,13 @@ html.menu-open #menuOverlay { opacity: 1; pointer-events: auto; }
     transform: translateX(32px);
     transition: none;
   }
+  html:not(.dark-theme) .menu__item {
+    border-bottom-color: rgba(22,163,74,.10);
+  }
   .menu__item:first-child { border-top: 1px solid rgba(255,255,255,.07); }
+  html:not(.dark-theme) .menu__item:first-child {
+    border-top-color: rgba(22,163,74,.10);
+  }
   html.menu-open .menu__item {
     opacity: 1;
     transform: translateX(0);
@@ -1380,7 +1601,7 @@ html.menu-open #menuOverlay { opacity: 1; pointer-events: auto; }
   html.menu-open .menu__item:nth-child(3) { transition-delay: .18s; }
   html.menu-open .menu__item:nth-child(4) { transition-delay: .24s; }
 
-  /* Panel links */
+  /* Panel links — dark variant */
   .menu__link {
     display: flex;
     align-items: center;
@@ -1407,13 +1628,28 @@ html.menu-open #menuOverlay { opacity: 1; pointer-events: auto; }
   .menu__link:hover::before,
   .menu__link--active::before { color: var(--green-300); }
 
-  /* Panel footer — tight gap, directly under nav */
+  /* Light mode link overrides */
+  html:not(.dark-theme) .menu__link {
+    color: rgba(15,40,24,.38);
+  }
+  html:not(.dark-theme) .menu__link:hover,
+  html:not(.dark-theme) .menu__link--active {
+    color: var(--green-700);
+  }
+  html:not(.dark-theme) .menu__link::before {
+    color: var(--green-500);
+  }
+  html:not(.dark-theme) .menu__link:hover::before,
+  html:not(.dark-theme) .menu__link--active::before {
+    color: var(--green-600);
+  }
+
+  /* Panel footer */
   .menu__panel-footer {
     display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 12px;
-    /* Small gap between last nav item and test button */
     margin-top: 24px;
     flex: 0 0 auto;
     opacity: 0; transform: translateY(10px); transition: none;
@@ -1429,6 +1665,8 @@ html.menu-open #menuOverlay { opacity: 1; pointer-events: auto; }
     transition: color .2s;
   }
   .menu__panel-mail:hover { color: rgba(255,255,255,.65); }
+  html:not(.dark-theme) .menu__panel-mail { color: rgba(22,101,52,.45); }
+  html:not(.dark-theme) .menu__panel-mail:hover { color: var(--green-700); }
 }
 
 /* ---- Tablet 768–1023: some section overrides ---- */
@@ -1567,32 +1805,6 @@ html.menu-open #menuOverlay { opacity: 1; pointer-events: auto; }
 }
 .skip-link:focus { top: 16px; }
 
-/* =====================================================
-   TOAST NOTIFICATION
-   ===================================================== */
-.toast {
-  position: fixed;
-  bottom: 96px; left: 50%;
-  transform: translateX(-50%) translateY(16px);
-  background: var(--slate-800);
-  color: #fff;
-  padding: 11px 22px;
-  border-radius: var(--r-full);
-  font-size: 14px;
-  font-family: var(--font-sans);
-  font-weight: 500;
-  box-shadow: 0 8px 32px rgba(0,0,0,.28), 0 2px 8px rgba(0,0,0,.12);
-  border: 1px solid rgba(255,255,255,.08);
-  opacity: 0;
-  transition: opacity .32s ease, transform .38s var(--ease-spring);
-  z-index: 9000;
-  pointer-events: none;
-  white-space: nowrap;
-}
-.toast--in {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
 
 /* =====================================================
    ANIMATED COUNTERS
@@ -1721,6 +1933,7 @@ html.menu-open #menuOverlay { opacity: 1; pointer-events: auto; }
 
 /* ---- Thumb: the celestial orb ---- */
 .theme-switch__thumb {
+  will-change: transform;
   position: absolute;
   top: 3px; left: 3px;
   width: 22px; height: 22px;
@@ -1745,8 +1958,6 @@ html.menu-open #menuOverlay { opacity: 1; pointer-events: auto; }
     transform    .46s cubic-bezier(.34,1.56,.64,1),
     background   .40s ease,
     box-shadow   .40s ease;
-
-  will-change: transform;
 }
 
 /* ---- Sun rays: conic-gradient starburst, masked to ring ---- */
@@ -1894,7 +2105,7 @@ html.dark-theme .theme-switch--burst .theme-switch__track {
    ===================================================== */
 html.dark-theme {
   --dm-bg:      #0d1117;
-  --dm-surface: #161b22;
+
   --dm-card:    #1c2333;
   --dm-border:  rgba(255,255,255,.07);
   --dm-text:    #cdd9e5;
@@ -1978,6 +2189,22 @@ html.dark-theme .btn--outline {
 /* Scroll progress */
 html.dark-theme #scrollProgress {
   background: linear-gradient(90deg, var(--green-500), var(--teal-400));
+}
+
+/* =====================================================
+   REDUCED MOTION — disable decorative CSS animations
+   JS already disables AOS, counters, and parallax.
+   ===================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .hero__title span,
+  .btn-up__glow,
+  .btn-up__shimmer::after,
+  .theme-switch__sky::after,
+  .theme-switch__rays,
+  .theme-switch--burst .theme-switch__track,
+  html.dark-theme .theme-switch--burst .theme-switch__track {
+    animation: none !important;
+  }
 }
 
 /* =====================================================
