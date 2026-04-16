@@ -62,12 +62,14 @@
   const btn = document.getElementById('buttonUp');
   if (!btn) return;
 
-  let visible = false;
+  let visible   = false;
+  let launching = false;
 
   function show() {
     if (visible) return;
     visible = true;
-    btn.classList.remove('btn-up--out');
+    launching = false;
+    btn.classList.remove('btn-up--out', 'btn-up--launch');
     void btn.offsetHeight; // force reflow so animation restarts clean
     btn.classList.add('btn-up--in');
   }
@@ -76,9 +78,10 @@
     if (!visible) return;
     visible = false;
     btn.classList.remove('btn-up--in');
+    if (launching) return; // launch animation handles disappearance
     btn.classList.add('btn-up--out');
     btn.addEventListener('animationend', () => {
-      if (!visible) btn.classList.remove('btn-up--out');
+      if (!visible && !launching) btn.classList.remove('btn-up--out');
     }, { once: true });
   }
 
@@ -102,9 +105,22 @@
   if ('onscrollend' in window) window.addEventListener('scrollend', sync, { passive: true });
   sync();
 
-  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  function launch() {
+    launching = true;
+    visible = false;
+    btn.classList.remove('btn-up--in', 'btn-up--out');
+    void btn.offsetHeight;
+    btn.classList.add('btn-up--launch');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    btn.addEventListener('animationend', () => {
+      btn.classList.remove('btn-up--launch');
+      launching = false;
+    }, { once: true });
+  }
+
+  btn.addEventListener('click', launch);
   btn.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); }
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); launch(); }
   });
 })();
 
@@ -122,25 +138,19 @@
 
   if (!burger) return;
 
-  let savedScrollY = 0;
-
   function lockScroll() {
-    savedScrollY = window.scrollY || window.pageYOffset;
-    Object.assign(document.body.style, {
-      position: 'fixed',
-      top: `-${savedScrollY}px`,
-      left: '0', right: '0',
-      width: '100%',
-      overflowY: 'scroll',
-    });
+    // overflow:hidden on <html> blocks input without resetting scrollY —
+    // no position:fixed needed, no repaint jump on unlock.
+    const sbw = window.innerWidth - document.documentElement.clientWidth;
+    html.style.overflow = 'hidden';
+    // Compensate for scrollbar disappearing so layout doesn't shift
+    if (sbw > 0) html.style.paddingRight = sbw + 'px';
   }
 
-  function unlockScroll(targetScrollY) {
-    Object.assign(document.body.style, {
-      position: '', top: '', left: '', right: '', width: '', overflowY: '',
-    });
-    // Restore original position (or jump to target anchor)
-    window.scrollTo(0, targetScrollY !== undefined ? targetScrollY : savedScrollY);
+  function unlockScroll() {
+    html.style.overflow    = '';
+    html.style.paddingRight = '';
+    // scrollY is unchanged — nothing to restore
   }
 
   function open() {
@@ -152,11 +162,10 @@
   function close(targetId) {
     html.classList.remove('menu-open');
     burger.setAttribute('aria-expanded', 'false');
+    unlockScroll();
 
     if (targetId) {
-      // Unlock scroll to top of page first, then animate to anchor
-      unlockScroll(savedScrollY);
-      // Wait for panel slide-out (iOS spring ~460ms), then scroll to section
+      // Small delay lets the panel slide out before we jump to the anchor
       setTimeout(() => {
         const target = document.getElementById(targetId);
         if (target) {
@@ -166,9 +175,7 @@
           const top = target.getBoundingClientRect().top + window.scrollY - headerH;
           window.scrollTo({ top, behavior: 'smooth' });
         }
-      }, 80); // short delay — just enough for body to unfreeze
-    } else {
-      unlockScroll();
+      }, 80);
     }
   }
 
@@ -236,38 +243,6 @@
   update();
 })();
 
-/* =====================================================
-   Toast helper (used by multiple modules)
-   ===================================================== */
-window.showToast = function showToast(msg) {
-  const existing = document.querySelector('.toast');
-  if (existing) existing.remove();
-  const t = document.createElement('div');
-  t.className = 'toast';
-  t.textContent = msg;
-  document.body.appendChild(t);
-  requestAnimationFrame(() => requestAnimationFrame(() => t.classList.add('toast--in')));
-  setTimeout(() => {
-    t.classList.remove('toast--in');
-    t.addEventListener('transitionend', () => t.remove(), { once: true });
-  }, 2800);
-}
-
-/* =====================================================
-   Email copy — click to copy, fallback to mailto
-   ===================================================== */
-(function initEmailCopy() {
-  document.querySelectorAll('a[href^="mailto:"]').forEach(link => {
-    link.addEventListener('click', e => {
-      if (!navigator.clipboard) return; // fallback: native mailto opens
-      e.preventDefault();
-      const email = link.getAttribute('href').replace('mailto:', '');
-      navigator.clipboard.writeText(email)
-        .then(() => showToast('📋 ' + email + ' — скопирован!'))
-        .catch(() => { window.location.href = link.href; });
-    });
-  });
-})();
 
 /* =====================================================
    Animated counters — count up when visible
@@ -317,35 +292,35 @@ window.showToast = function showToast(msg) {
 })();
 
 /* =====================================================
-   Theme switch — simple, reliable day/night toggle
+   Theme switch — reliable day/night toggle
    ===================================================== */
 (function initTheme() {
-  const html    = document.documentElement;
-  const KEY     = 'eco-theme';
+  const html = document.documentElement;
+  const KEY  = 'eco-theme';
 
   function isDark() { return html.classList.contains('dark-theme'); }
 
   function applyTheme(dark) {
     html.classList.toggle('dark-theme', dark);
     localStorage.setItem(KEY, dark ? 'dark' : 'light');
-    // Sync all checkboxes
     document.querySelectorAll('.theme-switch__input').forEach(cb => { cb.checked = dark; });
-    // Sync menu label
-    const lbl = document.getElementById('menuThemeLabel');
-    if (lbl) lbl.textContent = dark ? 'Светлая тема' : 'Тёмная тема';
   }
 
-  // Wire every switch checkbox
-  function bindSwitches() {
-    document.querySelectorAll('.theme-switch__input').forEach(cb => {
-      cb.checked = isDark();
-      cb.addEventListener('change', function() { applyTheme(this.checked); });
+  // Label click activates the checkbox → fires 'change' → applyTheme
+  document.querySelectorAll('.theme-switch__input').forEach(cb => {
+    cb.checked = isDark();
+    cb.addEventListener('change', function() {
+      applyTheme(this.checked);
+      // Burst ripple on the track
+      const label = this.closest('.theme-switch');
+      if (label) {
+        label.classList.remove('theme-switch--burst');
+        void label.offsetWidth; // reflow to restart animation
+        label.classList.add('theme-switch--burst');
+        label.addEventListener('animationend', () => {
+          label.classList.remove('theme-switch--burst');
+        }, { once: true });
+      }
     });
-  }
-
-  // Set initial state (anti-FOUC already applied class if needed)
-  bindSwitches();
-  // Sync label on load
-  const lbl = document.getElementById('menuThemeLabel');
-  if (lbl) lbl.textContent = isDark() ? 'Светлая тема' : 'Тёмная тема';
+  });
 })();

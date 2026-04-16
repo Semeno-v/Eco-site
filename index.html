@@ -88,8 +88,10 @@
 
     <!-- ========== BACK TO TOP ========== -->
     <button id="buttonUp" aria-label="Наверх">
-      <svg viewBox="0 0 18 18" aria-hidden="true">
-        <polyline points="3,12 9,6 15,12"/>
+      <span class="btn-up__glow"    aria-hidden="true"></span>
+      <span class="btn-up__shimmer" aria-hidden="true"></span>
+      <svg viewBox="0 0 20 20" aria-hidden="true">
+        <polyline points="4,14 10,7 16,14"/>
       </svg>
     </button>
 
@@ -125,16 +127,6 @@
                class="btn btn--glow" target="_blank" rel="noopener noreferrer">
               Пройти тест <i class="fas fa-arrow-right"></i>
             </a>
-            <!-- Theme toggle row -->
-            <div class="menu__theme-row">
-              <span class="menu__theme-label" id="menuThemeLabel">Тёмная тема</span>
-              <label class="theme-switch" aria-label="Переключить тему">
-                <input type="checkbox" class="theme-switch__input menu-theme-sync">
-                <span class="theme-switch__track">
-                  <span class="theme-switch__thumb"></span>
-                </span>
-              </label>
-            </div>
             <a href="mailto:ecogroup.official@mail.ru" class="menu__panel-mail">
               <i class="fas fa-envelope"></i> ecogroup.official@mail.ru
             </a>
@@ -149,7 +141,10 @@
           <label class="theme-switch" aria-label="Переключить тему" title="Переключить тему">
             <input type="checkbox" id="themeSwitch" class="theme-switch__input">
             <span class="theme-switch__track">
-              <span class="theme-switch__thumb"></span>
+              <span class="theme-switch__sky"   aria-hidden="true"></span>
+              <span class="theme-switch__thumb">
+                <span class="theme-switch__rays" aria-hidden="true"></span>
+              </span>
             </span>
           </label>
           <button class="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="mobileMenu">
@@ -182,10 +177,6 @@
             <div class="hero__cta">
               <a href="#ecotrash" class="btn btn--primary">
                 Узнать больше
-              </a>
-              <a href="https://forms.yandex.ru/u/6435616ef47e731347977ffd/"
-                 class="btn btn--outline" target="_blank" rel="noopener noreferrer">
-                Пройти тест <i class="fas fa-arrow-right"></i>
               </a>
             </div>
           </div>
