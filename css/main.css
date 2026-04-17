@@ -43,9 +43,11 @@
   --font-display: 'Raleway', var(--font-sans);
 
   /* iOS spring easing */
-  --ease-ios:    cubic-bezier(0.32, 0.72, 0, 1);
-  --ease-spring: cubic-bezier(0.34, 1.28, 0.64, 1);
-  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-ios:     cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-spring:  cubic-bezier(0.34, 1.28, 0.64, 1);
+  --ease-out:     cubic-bezier(0.22, 1, 0.36, 1);
+  /* Expo ease-out: arrives fast, settles like silk — used for Quiet Luxury menu */
+  --ease-luxury:  cubic-bezier(0.16, 1, 0.3, 1);
   --t: .24s;
 
   --header-h: 68px;
@@ -461,22 +463,22 @@ section {
 /* Hamburger: top/bot offset from center via transform */
 .burger__line--top {
   transform: translate(-50%, calc(-50% - 7px));
-  /* closing: top returns — instant start */
-  transition: transform .44s var(--ease-spring), opacity .2s ease, background .25s ease;
+  /* closing: decisive return, no overshoot */
+  transition: transform .38s cubic-bezier(0.4,0,0.2,1), opacity .2s ease, background .25s ease;
 }
 .burger__line--mid {
   transform: translate(-50%, -50%);
-  /* closing: mid fades in after lines have separated */
-  transition: transform .2s var(--ease-ios), opacity .2s ease .15s, background .25s ease;
+  /* closing: mid materialises after lines have separated */
+  transition: transform .22s var(--ease-ios), opacity .22s ease .12s, background .25s ease;
 }
 .burger__line--bot {
   transform: translate(-50%, calc(-50% + 7px));
-  /* closing: bot returns with tiny stagger after top */
-  transition: transform .44s var(--ease-spring), opacity .2s ease, background .25s ease;
-  transition-delay: .05s;
+  /* closing: bot follows with a whisper of lag */
+  transition: transform .38s cubic-bezier(0.4,0,0.2,1), opacity .2s ease, background .25s ease;
+  transition-delay: .03s;
 }
 
-/* ── Open state → X ── */
+/* ── Open state → X — clean, no overshoot ── */
 html.menu-open .burger {
   background: rgba(255,255,255,.18);
   border-color: rgba(255,255,255,.4) !important;
@@ -487,23 +489,20 @@ html.menu-open .header.scrolled .burger {
 }
 
 html.menu-open .burger__line--top {
-  transform: translate(-50%, -50%) rotate(45deg) scaleX(1.08);
-  /* opening: spring overshoot → feels alive */
-  transition: transform .52s var(--ease-spring), opacity .2s ease, background .25s ease;
+  transform: translate(-50%, -50%) rotate(45deg);
+  transition: transform .34s cubic-bezier(0.4,0,0.2,1), opacity .2s ease, background .25s ease;
   transition-delay: 0s;
 }
 html.menu-open .burger__line--mid {
   opacity: 0;
   transform: translate(-50%, -50%) scaleX(0);
-  /* opening: mid vanishes immediately */
-  transition: transform .15s ease, opacity .12s ease, background .25s ease;
+  transition: transform .14s ease, opacity .10s ease, background .25s ease;
   transition-delay: 0s;
 }
 html.menu-open .burger__line--bot {
-  transform: translate(-50%, -50%) rotate(-45deg) scaleX(1.08);
-  /* opening: bot follows top with tiny choreographed lag */
-  transition: transform .52s var(--ease-spring), opacity .2s ease, background .25s ease;
-  transition-delay: .04s;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  transition: transform .34s cubic-bezier(0.4,0,0.2,1), opacity .2s ease, background .25s ease;
+  transition-delay: .02s;
 }
 html.menu-open .header.scrolled .burger__line { background: var(--green-700); }
 
@@ -513,7 +512,7 @@ html.menu-open .header.scrolled .burger__line { background: var(--green-700); }
   background: rgba(5,36,18,.52);
   z-index: 148;
   opacity: 0; pointer-events: none;
-  transition: opacity .30s ease;
+  transition: opacity .52s cubic-bezier(0.4,0,0.2,1);
 }
 html.menu-open #menuOverlay { opacity: 1; pointer-events: auto; }
 
@@ -1541,7 +1540,7 @@ html.menu-open #menuOverlay { opacity: 1; pointer-events: auto; }
       radial-gradient(ellipse 55% 55% at 85% 8%,  rgba(74,222,128,.15) 0%, transparent 55%),
       #050f08;
     transform: translateX(100%);
-    transition: transform .46s var(--ease-ios), background .4s ease;
+    transition: transform .62s var(--ease-luxury), background .4s ease;
     z-index: 149;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -1581,7 +1580,7 @@ html.menu-open #menuOverlay { opacity: 1; pointer-events: auto; }
     counter-increment: navcount;
     border-bottom: 1px solid rgba(255,255,255,.07);
     opacity: 0;
-    transform: translateX(32px);
+    transform: translateY(20px);
     transition: none;
   }
   html:not(.dark-theme) .menu__item {
@@ -1593,13 +1592,14 @@ html.menu-open #menuOverlay { opacity: 1; pointer-events: auto; }
   }
   html.menu-open .menu__item {
     opacity: 1;
-    transform: translateX(0);
-    transition: opacity .40s var(--ease-out), transform .46s var(--ease-ios);
+    transform: translateY(0);
+    /* Luxury: opacity fades in, transform settles with expo ease */
+    transition: opacity .52s cubic-bezier(0.4,0,0.2,1), transform .60s var(--ease-luxury);
   }
-  html.menu-open .menu__item:nth-child(1) { transition-delay: .06s; }
-  html.menu-open .menu__item:nth-child(2) { transition-delay: .12s; }
-  html.menu-open .menu__item:nth-child(3) { transition-delay: .18s; }
-  html.menu-open .menu__item:nth-child(4) { transition-delay: .24s; }
+  html.menu-open .menu__item:nth-child(1) { transition-delay: .08s; }
+  html.menu-open .menu__item:nth-child(2) { transition-delay: .15s; }
+  html.menu-open .menu__item:nth-child(3) { transition-delay: .22s; }
+  html.menu-open .menu__item:nth-child(4) { transition-delay: .29s; }
 
   /* Panel links — dark variant */
   .menu__link {
@@ -1612,7 +1612,7 @@ html.menu-open #menuOverlay { opacity: 1; pointer-events: auto; }
     font-weight: 900;
     letter-spacing: -.02em;
     text-transform: none;
-    transition: color .20s ease, padding-left .20s var(--ease-spring);
+    transition: color .28s ease, padding-left .32s cubic-bezier(0.4,0,0.2,1);
     position: relative;
   }
   .menu__link:hover,
@@ -1652,12 +1652,12 @@ html.menu-open #menuOverlay { opacity: 1; pointer-events: auto; }
     gap: 12px;
     margin-top: 24px;
     flex: 0 0 auto;
-    opacity: 0; transform: translateY(10px); transition: none;
+    opacity: 0; transform: translateY(14px); transition: none;
   }
   html.menu-open .menu__panel-footer {
     opacity: 1; transform: translateY(0);
-    transition: opacity .36s var(--ease-out), transform .42s var(--ease-ios);
-    transition-delay: .26s;
+    transition: opacity .48s cubic-bezier(0.4,0,0.2,1), transform .56s var(--ease-luxury);
+    transition-delay: .36s;
   }
   .menu__panel-mail {
     display: flex; align-items: center; gap: 8px;
