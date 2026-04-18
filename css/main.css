@@ -97,6 +97,8 @@ button { font-family: inherit; cursor: pointer; background: none; }
   outline-offset: 3px;
   border-radius: 15px;
 }
+.footer__ext-icon { font-size: 10px; }
+
 .menu__link:focus-visible,
 .footer__mail:focus-visible,
 .footer__nav a:focus-visible {
@@ -1541,6 +1543,7 @@ html.menu-open #menuOverlay { opacity: 1; pointer-events: auto; }
       #050f08;
     transform: translateX(100%);
     transition: transform .62s var(--ease-luxury), background .4s ease;
+    will-change: transform;
     z-index: 149;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;

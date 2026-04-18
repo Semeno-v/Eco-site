@@ -14,7 +14,7 @@
   <link rel="dns-prefetch" href="https://unpkg.com">
 
   <!-- Preload critical above-the-fold image -->
-  <link rel="preload" as="image" href="img/main.png">
+  <link rel="preload" as="image" href="img/main.webp" type="image/webp">
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&family=Raleway:wght@700;800;900&display=swap" rel="stylesheet">
@@ -63,6 +63,7 @@
   <meta property="og:title"       content="EcoGroup — Экология это важно">
   <meta property="og:description" content="Узнайте об экологических проблемах, правилах сортировки отходов и пройдите тест на экологическую грамотность.">
   <meta property="og:image"       content="https://ecogroup.ru/img/main.png">
+  <meta property="og:url"         content="https://ecogroup.ru/">
   <meta property="og:locale"      content="ru_RU">
   <meta name="twitter:card"       content="summary_large_image">
   <meta name="twitter:title"      content="EcoGroup — Экология это важно">
@@ -77,7 +78,12 @@
     "description": "Информационно-образовательная среда об экологических проблемах.",
     "url": "https://ecogroup.ru",
     "email": "ecogroup.official@mail.ru",
-    "knowsAbout": ["экология", "сортировка отходов", "экологические проблемы"]
+    "knowsAbout": ["экология", "сортировка отходов", "экологические проблемы"],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "ecogroup.official@mail.ru",
+      "contactType": "customer support"
+    }
   }
   </script>
 </head>
@@ -163,7 +169,7 @@
     <div id="menuOverlay" aria-hidden="true"></div>
 
     <!-- ========== MAIN ========== -->
-    <main>
+    <main id="main">
 
       <!-- HERO -->
       <section class="hero" id="ecomain">
@@ -186,7 +192,10 @@
 
           <div class="hero__media" data-aos="fade-left" data-aos-delay="150">
             <div class="hero__img-wrap">
-              <img src="img/main.png" alt="Уход за природой" width="547" height="394" loading="eager" fetchpriority="high" decoding="sync">
+              <picture>
+                <source srcset="img/main.webp" type="image/webp">
+                <img src="img/main.png" alt="Уход за природой" width="547" height="394" loading="eager" fetchpriority="high" decoding="sync">
+              </picture>
             </div>
           </div>
 
@@ -197,7 +206,10 @@
             </div>
             <div class="hero__qr-body">
               <div class="hero__qr-frame">
-                <img src="img/Video.gif" alt="QR-код для теста" width="164" height="164" loading="lazy" decoding="async">
+                <picture>
+                  <source srcset="img/Video.webp" type="image/webp">
+                  <img src="img/Video.gif" alt="QR-код для теста" width="164" height="164" loading="lazy" decoding="async">
+                </picture>
               </div>
               <div class="hero__qr-info">
                 <p class="hero__qr-desc">Наведи камеру телефона на QR-код — тест откроется автоматически!</p>
@@ -227,7 +239,10 @@
           <div class="rules__grid">
             <div class="rule-card" data-aos="fade-up" data-aos-delay="0">
               <div class="rule-card__icon">
-                <img src="img/item_1.png" alt="Личная ответственность перед природой" width="90" height="90" loading="lazy" decoding="async">
+                <picture>
+                  <source srcset="img/item_1.webp" type="image/webp">
+                  <img src="img/item_1.png" alt="Личная ответственность перед природой" width="90" height="90" loading="lazy" decoding="async">
+                </picture>
               </div>
               <h3 class="rule-card__title">Личная ответственность</h3>
               <p class="rule-card__text">
@@ -239,7 +254,10 @@
 
             <div class="rule-card" data-aos="fade-up" data-aos-delay="100">
               <div class="rule-card__icon">
-                <img src="img/item_2.png" alt="Не причинять вред природе" width="90" height="90" loading="lazy" decoding="async">
+                <picture>
+                  <source srcset="img/item_2.webp" type="image/webp">
+                  <img src="img/item_2.png" alt="Не причинять вред природе" width="90" height="90" loading="lazy" decoding="async">
+                </picture>
               </div>
               <h3 class="rule-card__title">Не причинять вред</h3>
               <p class="rule-card__text">
@@ -251,7 +269,10 @@
 
             <div class="rule-card" data-aos="fade-up" data-aos-delay="200">
               <div class="rule-card__icon">
-                <img src="img/item_3.png" alt="Помогать жизни и природе" width="90" height="90" loading="lazy" decoding="async">
+                <picture>
+                  <source srcset="img/item_3.webp" type="image/webp">
+                  <img src="img/item_3.png" alt="Помогать жизни и природе" width="90" height="90" loading="lazy" decoding="async">
+                </picture>
               </div>
               <h3 class="rule-card__title">Помогать жизни</h3>
               <p class="rule-card__text">
@@ -279,7 +300,10 @@
           <div class="trash__grid">
             <div class="trash-card" data-aos="zoom-in" data-aos-delay="0">
               <div class="trash-card__icon">
-                <img src="img/trash/trash_can_1.png" alt="Бумага" width="90" height="90" loading="lazy" decoding="async">
+                <picture>
+                  <source srcset="img/trash/trash_can_1.webp" type="image/webp">
+                  <img src="img/trash/trash_can_1.png" alt="Бумага" width="90" height="90" loading="lazy" decoding="async">
+                </picture>
               </div>
               <h3 class="trash-card__title">Бумажные отходы</h3>
               <p class="trash-card__text">
@@ -292,7 +316,10 @@
 
             <div class="trash-card" data-aos="zoom-in" data-aos-delay="80">
               <div class="trash-card__icon">
-                <img src="img/trash/trash_can_2.png" alt="Металл" width="90" height="90" loading="lazy" decoding="async">
+                <picture>
+                  <source srcset="img/trash/trash_can_2.webp" type="image/webp">
+                  <img src="img/trash/trash_can_2.png" alt="Металл" width="90" height="90" loading="lazy" decoding="async">
+                </picture>
               </div>
               <h3 class="trash-card__title">Металлические отходы</h3>
               <p class="trash-card__text">
@@ -304,7 +331,10 @@
 
             <div class="trash-card" data-aos="zoom-in" data-aos-delay="160">
               <div class="trash-card__icon">
-                <img src="img/trash/trash_can_4.png" alt="Стекло" width="90" height="90" loading="lazy" decoding="async">
+                <picture>
+                  <source srcset="img/trash/trash_can_4.webp" type="image/webp">
+                  <img src="img/trash/trash_can_4.png" alt="Стекло" width="90" height="90" loading="lazy" decoding="async">
+                </picture>
               </div>
               <h3 class="trash-card__title">Стеклянные отходы</h3>
               <p class="trash-card__text">
@@ -316,7 +346,10 @@
 
             <div class="trash-card" data-aos="zoom-in" data-aos-delay="240">
               <div class="trash-card__icon">
-                <img src="img/trash/trash_can_5.png" alt="Пластик" width="90" height="90" loading="lazy" decoding="async">
+                <picture>
+                  <source srcset="img/trash/trash_can_5.webp" type="image/webp">
+                  <img src="img/trash/trash_can_5.png" alt="Пластик" width="90" height="90" loading="lazy" decoding="async">
+                </picture>
               </div>
               <h3 class="trash-card__title">Пластмассовые отходы</h3>
               <p class="trash-card__text">
@@ -351,7 +384,10 @@
 
             <article class="problem-item" data-aos="fade-up">
               <div class="problem-item__media">
-                <img src="img/illustration/illustration_1.png" alt="Таяние ледников" width="900" height="600" loading="lazy" decoding="async">
+                <picture>
+                  <source srcset="img/illustration/illustration_1.webp" type="image/webp">
+                  <img src="img/illustration/illustration_1.png" alt="Таяние ледников" width="900" height="600" loading="lazy" decoding="async">
+                </picture>
               </div>
               <div class="problem-item__body">
                 <span class="problem-item__num">01</span>
@@ -368,13 +404,16 @@
 
             <article class="problem-item problem-item--reverse" data-aos="fade-up">
               <div class="problem-item__media">
-                <img src="img/illustration/illustration_2.png" alt="Загрязнение сточными водами" width="900" height="600" loading="lazy" decoding="async">
+                <picture>
+                  <source srcset="img/illustration/illustration_2.webp" type="image/webp">
+                  <img src="img/illustration/illustration_2.png" alt="Загрязнение сточными водами" width="900" height="600" loading="lazy" decoding="async">
+                </picture>
               </div>
               <div class="problem-item__body">
                 <span class="problem-item__num">02</span>
                 <h3 class="problem-item__title">Загрязнение сточными водами</h3>
                 <p>
-                  Запас пресной воды во всём мире катастрофически мал — всего <span class="counter" data-to="3">3</span>%. Этого уже сейчас
+                  Запас пресной воды во всём мире катастрофически мал — всего <span class="counter" data-to="3" aria-live="polite" aria-atomic="true">3</span>%. Этого уже сейчас
                   недостаточно для обеспечения всего населения питьевой водой. При сохранении
                   тенденции загрязнения водные запасы планеты иссякнут к 2050 году.
                   Необходима полномасштабная поддержка инициатив по очистке воды.
@@ -384,13 +423,16 @@
 
             <article class="problem-item" data-aos="fade-up">
               <div class="problem-item__media">
-                <img src="img/illustration/illustration_3.png" alt="Загрязнение воздуха" width="900" height="600" loading="lazy" decoding="async">
+                <picture>
+                  <source srcset="img/illustration/illustration_3.webp" type="image/webp">
+                  <img src="img/illustration/illustration_3.png" alt="Загрязнение воздуха" width="900" height="600" loading="lazy" decoding="async">
+                </picture>
               </div>
               <div class="problem-item__body">
                 <span class="problem-item__num">03</span>
                 <h3 class="problem-item__title">Загрязнение воздуха</h3>
                 <p>
-                  Промышленные предприятия и транспорт выбрасывают в атмосферу более <span class="counter" data-to="30">30</span> миллиардов
+                  Промышленные предприятия и транспорт выбрасывают в атмосферу более <span class="counter" data-to="30" aria-live="polite" aria-atomic="true">30</span> миллиардов
                   тонн углекислого газа ежегодно. Это разрушает озоновый слой и провоцирует
                   респираторные заболевания, аллергии и нарушения репродуктивной функции.
                   Загрязнение воздуха также повышает кислотность питьевой воды.
@@ -400,13 +442,16 @@
 
             <article class="problem-item problem-item--reverse" data-aos="fade-up">
               <div class="problem-item__media">
-                <img src="img/illustration/illustration_4.png" alt="Обезлесение" width="900" height="600" loading="lazy" decoding="async">
+                <picture>
+                  <source srcset="img/illustration/illustration_4.webp" type="image/webp">
+                  <img src="img/illustration/illustration_4.png" alt="Обезлесение" width="900" height="600" loading="lazy" decoding="async">
+                </picture>
               </div>
               <div class="problem-item__body">
                 <span class="problem-item__num">04</span>
                 <h3 class="problem-item__title">Обезлесение</h3>
                 <p>
-                  Леса составляют около <span class="counter" data-to="85">85</span>% фитомассы мира. Одно дерево производит около
+                  Леса составляют около <span class="counter" data-to="85" aria-live="polite" aria-atomic="true">85</span>% фитомассы мира. Одно дерево производит около
                   120 кг кислорода в год. Когда лес вырубают без восстановления, исчезает барьер
                   против оползней и эрозии почв, нарушается очистка атмосферы. Не случайно
                   по всему миру проводятся акции «Посади своё дерево».
@@ -416,7 +461,10 @@
 
             <article class="problem-item" data-aos="fade-up">
               <div class="problem-item__media">
-                <img src="img/illustration/illustration_5.png" alt="Вымирающие виды животных" width="900" height="600" loading="lazy" decoding="async">
+                <picture>
+                  <source srcset="img/illustration/illustration_5.webp" type="image/webp">
+                  <img src="img/illustration/illustration_5.png" alt="Вымирающие виды животных" width="900" height="600" loading="lazy" decoding="async">
+                </picture>
               </div>
               <div class="problem-item__body">
                 <span class="problem-item__num">05</span>
@@ -432,13 +480,16 @@
 
             <article class="problem-item problem-item--reverse" data-aos="fade-up">
               <div class="problem-item__media">
-                <img src="img/illustration/illustration_6.png" alt="Истощение природных ресурсов" width="900" height="467" loading="lazy" decoding="async">
+                <picture>
+                  <source srcset="img/illustration/illustration_6.webp" type="image/webp">
+                  <img src="img/illustration/illustration_6.png" alt="Истощение природных ресурсов" width="900" height="467" loading="lazy" decoding="async">
+                </picture>
               </div>
               <div class="problem-item__body">
                 <span class="problem-item__num">06</span>
                 <h3 class="problem-item__title">Истощение природных ресурсов</h3>
                 <p>
-                  Ежегодно из недр Земли извлекается <span class="counter" data-to="100">100</span> миллиардов тонн минеральных ресурсов,
+                  Ежегодно из недр Земли извлекается <span class="counter" data-to="100" aria-live="polite" aria-atomic="true">100</span> миллиардов тонн минеральных ресурсов,
                   из которых 90 миллиардов тонн превращается в отходы. По прогнозам, при
                   сохранении тенденций запасы истощатся через 70 лет. Этой проблемой должен
                   заниматься каждый человек на планете!
@@ -451,7 +502,10 @@
           <!-- Conclusion -->
           <div class="problems__conclusion" data-aos="fade-up">
             <div class="problems__conclusion-img">
-              <img src="img/illustration/ecology_1.png" alt="Выводы об экологии" width="500" height="500" loading="lazy" decoding="async">
+              <picture>
+                <source srcset="img/illustration/ecology_1.webp" type="image/webp">
+                <img src="img/illustration/ecology_1.png" alt="Выводы об экологии" width="500" height="500" loading="lazy" decoding="async">
+              </picture>
             </div>
             <blockquote class="problems__conclusion-quote">
               <p>
@@ -503,7 +557,7 @@
               <li>
                 <a href="https://forms.yandex.ru/u/6435616ef47e731347977ffd/"
                    target="_blank" rel="noopener noreferrer">
-                  Пройти тест <i class="fas fa-external-link-alt" style="font-size:10px"></i>
+                  Пройти тест <i class="fas fa-external-link-alt footer__ext-icon"></i>
                 </a>
               </li>
             </ul>
@@ -528,7 +582,14 @@
   <!-- Scripts -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"
     integrity="sha384-wziAfh6b/qT+3LrqebF9WeK4+J5sehS6FA10J1t3a866kJ/fvU5UwofWnQyzLtwu"
-    crossorigin="anonymous"></script>
-  <script src="js/top.js"></script>
+    crossorigin="anonymous" defer></script>
+  <script src="js/top.js" defer></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
+      });
+    }
+  </script>
 </body>
 </html>

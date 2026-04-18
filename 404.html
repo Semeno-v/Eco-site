@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>EcoGroup — Страница не найдена</title>
+  <!-- Anti-FOUC -->
+  <script>(function(){if(localStorage.getItem('eco-theme')==='dark')document.documentElement.classList.add('dark-theme');}());</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&family=Raleway:wght@700;800;900&display=swap" rel="stylesheet">
+  <style>
+/* ── Tokens ─────────────────────────────────── */
+:root {
+  --g3: #86efac; --g4: #4ade80; --g5: #22c55e;
+  --g6: #16a34a; --g7: #15803d;
+  --t4: #2dd4bf; --t5: #14b8a6;
+  --s4: #94a3b8; --s5: #64748b; --s7: #334155;
+  --font:    'Rubik',   system-ui, -apple-system, sans-serif;
+  --display: 'Raleway', var(--font);
+  --lux: cubic-bezier(0.16, 1, 0.3, 1);
+  --spr: cubic-bezier(0.34, 1.28, 0.64, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { height: 100%; font-family: var(--font);
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+body {
+  min-height: 100dvh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 80px 24px 48px;
+  position: relative; overflow: hidden;
+  background:
+    radial-gradient(ellipse 90% 55% at 50% -10%, rgba(134,239,172,.28) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 50% at 92% 110%,  rgba(45,212,191,.14)  0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at -5%  80%,  rgba(74,222,128,.10)  0%, transparent 55%),
+    #f0fdf4;
+  color: var(--s7);
+}
+html.dark-theme body {
+  background:
+    radial-gradient(ellipse 90% 55% at 50% -10%, rgba(74,222,128,.10)  0%, transparent 65%),
+    radial-gradient(ellipse 60% 50% at 92% 110%,  rgba(45,212,191,.08)  0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at -5%  80%,  rgba(134,239,172,.05) 0%, transparent 55%),
+    #020c04;
+  color: rgba(255,255,255,.82);
+}
+
+/* ── Ambient mesh ─────────────────────────── */
+.mesh {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+}
+.mesh__blob {
+  position: absolute; border-radius: 50%; filter: blur(90px); will-change: transform;
+}
+.mesh__blob--a {
+  width: 600px; height: 600px; top: -200px; left: -160px;
+  background: radial-gradient(circle, rgba(134,239,172,.15), transparent 70%);
+  animation: blob-a 20s ease-in-out infinite alternate;
+}
+.mesh__blob--b {
+  width: 500px; height: 500px; bottom: -160px; right: -120px;
+  background: radial-gradient(circle, rgba(45,212,191,.12), transparent 70%);
+  animation: blob-b 24s ease-in-out 3s infinite alternate-reverse;
+}
+.mesh__blob--c {
+  width: 360px; height: 360px; top: 40%; left: 60%;
+  background: radial-gradient(circle, rgba(74,222,128,.08), transparent 70%);
+  animation: blob-a 18s ease-in-out 8s infinite alternate;
+}
+html.dark-theme .mesh__blob--a { background: radial-gradient(circle, rgba(74,222,128,.07), transparent 70%); }
+html.dark-theme .mesh__blob--b { background: radial-gradient(circle, rgba(45,212,191,.06), transparent 70%); }
+html.dark-theme .mesh__blob--c { background: radial-gradient(circle, rgba(134,239,172,.04), transparent 70%); }
+@keyframes blob-a { from { transform: translate(0,0) scale(1); } to { transform: translate(40px,30px) scale(1.08); } }
+@keyframes blob-b { from { transform: translate(0,0) scale(1); } to { transform: translate(-30px,20px) scale(1.05); } }
+
+/* ── Particles ─────────────────────────────── */
+.particles { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.particle  { position: absolute; border-radius: 50%; opacity: 0; animation: particle-rise linear infinite; }
+@keyframes particle-rise {
+  0%   { opacity: 0; transform: translateY(0) scale(0); }
+  8%   { opacity: .55; transform: translateY(-18px) scale(1); }
+  85%  { opacity: .35; }
+  100% { opacity: 0; transform: translateY(-180px) scale(0.3); }
+}
+
+/* ── Logo (top-left) ──────────────────────── */
+.logo {
+  position: fixed; top: 24px; left: 28px; z-index: 10;
+  display: flex; align-items: center; gap: 9px;
+  text-decoration: none; color: inherit;
+  opacity: .72; transition: opacity .22s ease;
+  animation: enter .6s var(--lux) .05s both;
+}
+.logo:hover { opacity: 1; }
+.logo:focus-visible { outline: 2px solid var(--g5); outline-offset: 4px; border-radius: 6px; }
+.logo__icon { width: 30px; height: 30px; flex-shrink: 0; }
+.logo__text { font-family: var(--display); font-size: 15px; font-weight: 800; letter-spacing: -.01em; }
+
+/* ── Theme toggle (top-right) ─────────────── */
+.theme-btn {
+  position: fixed; top: 22px; right: 28px; z-index: 10;
+  width: 38px; height: 38px; border-radius: 50%;
+  border: 1.5px solid rgba(0,0,0,.10);
+  background: rgba(255,255,255,.55);
+  backdrop-filter: blur(12px);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  color: var(--s5); transition: border-color .22s, background .22s, transform .2s var(--spr);
+  animation: enter .6s var(--lux) .1s both;
+}
+.theme-btn:hover  { transform: scale(1.08); border-color: rgba(0,0,0,.18); }
+.theme-btn:active { transform: scale(.92); }
+.theme-btn:focus-visible { outline: 2px solid var(--g5); outline-offset: 3px; }
+html.dark-theme .theme-btn {
+  background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.12); color: rgba(255,255,255,.7);
+}
+html.dark-theme .theme-btn:hover { border-color: rgba(255,255,255,.28); }
+.theme-btn svg { width: 18px; height: 18px; }
+.icon-sun  { display: block; }
+.icon-moon { display: none;  }
+html.dark-theme .icon-sun  { display: none;  }
+html.dark-theme .icon-moon { display: block; }
+
+/* ── Page layout ──────────────────────────── */
+.page {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column;
+  align-items: center; text-align: center;
+  width: 100%; max-width: 540px;
+  gap: 0;
+}
+
+/* Left column: plant + code */
+.page__left {
+  display: flex; flex-direction: column; align-items: center;
+  flex-shrink: 0;
+}
+/* Right column: text + CTA */
+.page__right {
+  display: flex; flex-direction: column; align-items: center;
+  width: 100%;
+}
+
+/* ── Plant illustration ───────────────────── */
+.plant-wrap {
+  position: relative;
+  width: 148px; height: 180px;
+  margin-bottom: 28px;
+  animation: enter .72s var(--lux) .12s both;
+}
+.plant-wrap > svg {
+  width: 100%; height: 100%; overflow: visible;
+  transform-origin: 50% 95%;
+  animation: plant-sway 9s ease-in-out 1.5s infinite;
+}
+@keyframes plant-sway {
+  0%,100% { transform: rotate(-1.2deg); }
+  50%     { transform: rotate( 1.2deg); }
+}
+
+/* Stem draw-on */
+.stem {
+  stroke-dasharray: 280; stroke-dashoffset: 280;
+  animation: draw-stem .9s var(--lux) .45s forwards;
+}
+@keyframes draw-stem { to { stroke-dashoffset: 0; } }
+
+/* Leaves */
+.leaf { opacity: 0; transform-box: fill-box; }
+.leaf-1 { transform-origin: 92% 90%; animation: leaf-in .55s var(--spr) 1.10s forwards; }
+.leaf-2 { transform-origin: 8%  72%; animation: leaf-in .55s var(--spr) 1.25s forwards; }
+.leaf-3 { transform-origin: 85% 60%; animation: leaf-in .55s var(--spr) 1.40s forwards; }
+.leaf-4 { transform-origin: 15% 45%; animation: leaf-in .55s var(--spr) 1.55s forwards; }
+.leaf-5 { transform-origin: 50% 20%; animation: leaf-in .55s var(--spr) 1.70s forwards; }
+@keyframes leaf-in {
+  from { opacity: 0; transform: scale(0.05) rotate(-12deg); }
+  to   { opacity: 1; transform: scale(1)    rotate(0deg);   }
+}
+
+/* Leaf-tip dots */
+.tip { opacity: 0; }
+@keyframes tip-pop {
+  from { opacity: 0; transform: scale(0); transform-box: fill-box; transform-origin: center; }
+  to   { opacity: 1; transform: scale(1); transform-box: fill-box; transform-origin: center; }
+}
+.tip { animation: tip-pop .35s var(--spr) 1.95s forwards; }
+
+/* Glow under plant */
+.plant-glow {
+  position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+  width: 72px; height: 18px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(74,222,128,.28) 0%, transparent 70%);
+  filter: blur(6px);
+  animation: glow-breathe 4s ease-in-out infinite;
+}
+@keyframes glow-breathe {
+  0%,100% { opacity: .6; transform: translateX(-50%) scaleX(1);    }
+  50%     { opacity: 1;  transform: translateX(-50%) scaleX(1.18); }
+}
+
+/* ── 404 code ─────────────────────────────── */
+.code {
+  font-family: var(--display);
+  font-size: clamp(88px, 20vw, 148px);
+  font-weight: 900; letter-spacing: -.05em; line-height: .92;
+  margin-bottom: 0;
+  background: linear-gradient(
+    105deg,
+    var(--g5)  0%,
+    var(--t4) 28%,
+    rgba(255,255,255,.85) 46%,
+    var(--t4) 54%,
+    var(--g4) 72%,
+    var(--g5) 100%
+  );
+  background-size: 220% auto;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation:
+    enter         .75s var(--lux) .28s both,
+    shimmer-sweep 7s  linear      2.2s infinite;
+  will-change: background-position;
+}
+@keyframes shimmer-sweep {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+
+/* ── Signal (offline) ─────────────────────── */
+.signal {
+  display: none; gap: 5px; align-items: flex-end;
+  height: 22px; margin-top: 12px;
+}
+.signal.visible { display: flex; }
+.signal__bar { width: 5px; border-radius: 2px; background: rgba(134,239,172,.25); }
+.signal__bar:nth-child(1) { height:  6px; }
+.signal__bar:nth-child(2) { height: 11px; }
+.signal__bar:nth-child(3) { height: 16px; }
+.signal__bar:nth-child(4) { height: 22px; }
+.signal__bar.on { background: var(--g4); }
+
+/* Spacer between left and right on mobile */
+.page__gap { height: 24px; }
+
+
+/* ── Title ────────────────────────────────── */
+.title {
+  font-family: var(--display);
+  font-size: clamp(20px, 4.5vw, 28px);
+  font-weight: 800; letter-spacing: -.02em;
+  color: inherit; margin-bottom: 12px;
+  animation: enter .6s var(--lux) .40s both;
+}
+
+/* ── Rule ─────────────────────────────────── */
+.rule {
+  width: 0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--g5), var(--t4), transparent);
+  border-radius: 9999px; margin-bottom: 16px; opacity: .6;
+  animation: rule-grow .7s var(--lux) .55s forwards;
+}
+@keyframes rule-grow { to { width: 52px; } }
+
+/* ── Body text ────────────────────────────── */
+.body-text {
+  font-size: 15px; line-height: 1.65;
+  color: var(--s4); max-width: 360px; margin-bottom: 36px;
+  animation: enter .6s var(--lux) .52s both;
+}
+html.dark-theme .body-text { color: rgba(255,255,255,.36); }
+
+/* ── CTA button ───────────────────────────── */
+.actions { animation: enter .6s var(--lux) .62s both; }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 15px 32px; border-radius: 9999px;
+  font-family: var(--font); font-size: 15px; font-weight: 600;
+  letter-spacing: .01em; cursor: pointer; border: none;
+  text-decoration: none; position: relative; overflow: hidden;
+  background: linear-gradient(135deg, var(--g5) 0%, var(--g6) 100%);
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(22,163,74,.32), 0 1px 3px rgba(22,163,74,.20);
+  transition: transform .24s var(--spr), box-shadow .22s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn:hover {
+  transform: translateY(-3px) scale(1.025);
+  box-shadow: 0 8px 28px rgba(22,163,74,.44), 0 2px 6px rgba(22,163,74,.22);
+}
+.btn:active  { transform: scale(.96); transition-duration: .1s; }
+.btn:focus-visible { outline: 2px solid var(--g5); outline-offset: 3px; }
+
+/* Shimmer on hover */
+.btn::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(100deg, transparent 20%, rgba(255,255,255,.22) 50%, transparent 80%);
+  transform: translateX(-120%); transition: transform .5s ease;
+}
+.btn:hover::after { transform: translateX(120%); }
+
+/* Persistent glow pulse */
+.btn::before {
+  content: ''; position: absolute; inset: -2px; border-radius: 9999px;
+  background: inherit; opacity: 0; z-index: -1;
+  animation: btn-pulse 3s ease-in-out 3s infinite;
+}
+@keyframes btn-pulse {
+  0%,100% { opacity: 0;   transform: scale(1); }
+  50%     { opacity: .35; transform: scale(1.06); filter: blur(6px); }
+}
+
+/* Arrow nudge */
+.btn-arrow { display: inline-flex; transition: transform .22s var(--spr); }
+.btn:hover .btn-arrow { transform: translateX(3px); }
+
+/* ── Entrance ─────────────────────────────── */
+@keyframes enter {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─────────────────────────────────────────── */
+/* ── RESPONSIVE                            ── */
+/* ─────────────────────────────────────────── */
+
+/* ── Tablet: 600–860px ─── */
+@media (min-width: 600px) {
+  body { padding: 90px 40px 60px; }
+  .page { max-width: 600px; }
+  .plant-wrap { width: 168px; height: 204px; }
+  .body-text  { font-size: 16px; }
+}
+
+/* ── Desktop: 860px+ — two-column layout ─── */
+@media (min-width: 860px) {
+  body {
+    padding: 40px 60px;
+    justify-content: center;
+  }
+  .page {
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
+    max-width: 1020px;
+    gap: 72px;
+  }
+  .page__left  { align-items: center; }
+  .page__right { align-items: flex-start; flex: 1; }
+  .page__gap   { display: none; } /* not needed in row layout */
+
+  .plant-wrap  { width: 200px; height: 242px; margin-bottom: 20px; }
+
+  .url-badge   { align-self: flex-start; }
+  .rule        { margin-left: 0; margin-right: auto; }
+  .body-text   { text-align: left; max-width: 420px; font-size: 16px; }
+  .actions     { align-self: flex-start; }
+}
+
+/* ── Large desktop: 1200px+ ─── */
+@media (min-width: 1200px) {
+  .page       { gap: 96px; max-width: 1100px; }
+  .plant-wrap { width: 224px; height: 272px; }
+}
+
+/* ── Small mobile: 380px and below ─── */
+@media (max-width: 380px) {
+  body        { padding: 72px 18px 40px; }
+  .plant-wrap { width: 120px; height: 146px; margin-bottom: 20px; }
+  .btn        { padding: 13px 24px; font-size: 14px; }
+  .body-text  { font-size: 14px; margin-bottom: 28px; }
+}
+
+/* ── Reduced motion ───────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .plant-wrap > svg, .mesh__blob--a, .mesh__blob--b, .mesh__blob--c,
+  .plant-glow, .btn::before { animation: none; }
+  .stem  { animation: none; stroke-dashoffset: 0; }
+  .leaf  { animation: none; opacity: 1; transform: none; }
+  .tip   { animation: none; opacity: 1; }
+  .code  { animation: enter .4s var(--lux) both; }
+  .rule  { animation: none; width: 52px; }
+}
+  </style>
+</head>
+<body>
+
+<div class="mesh" aria-hidden="true">
+  <div class="mesh__blob mesh__blob--a"></div>
+  <div class="mesh__blob mesh__blob--b"></div>
+  <div class="mesh__blob mesh__blob--c"></div>
+</div>
+<div class="particles" id="particles" aria-hidden="true"></div>
+
+<!-- Logo -->
+<a href="index.html" class="logo" aria-label="EcoGroup — на главную">
+  <svg class="logo__icon" viewBox="0 0 32 32" aria-hidden="true">
+    <circle cx="16" cy="16" r="15" fill="#22c55e"/>
+    <path d="M10 19c5-9 11-10 15-8 -2 7-6 13-15 17 4-4 5-8 5-11 -3 1-4 1-5 2z" fill="#e8f5e9" opacity=".9"/>
+  </svg>
+  <span class="logo__text">Eco Group</span>
+</a>
+
+<!-- Theme toggle -->
+<button class="theme-btn" id="themeBtn" aria-label="Переключить тему">
+  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="4"/>
+    <path d="M12 2v2M12 20v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M2 12h2M20 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+  </svg>
+  <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+  </svg>
+</button>
+
+<main class="page" role="main" id="main">
+
+  <!-- LEFT: plant + code -->
+  <div class="page__left">
+    <div class="plant-wrap" aria-hidden="true">
+      <div class="plant-glow"></div>
+      <svg viewBox="0 0 164 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="stemG" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
+            <stop offset="0%"   stop-color="#22c55e"/>
+            <stop offset="100%" stop-color="#2dd4bf"/>
+          </linearGradient>
+          <linearGradient id="leafG1" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%"   stop-color="#4ade80" stop-opacity=".92"/>
+            <stop offset="100%" stop-color="#22c55e" stop-opacity=".72"/>
+          </linearGradient>
+          <linearGradient id="leafG2" x1="1" y1="0" x2="0" y2="1">
+            <stop offset="0%"   stop-color="#2dd4bf" stop-opacity=".88"/>
+            <stop offset="100%" stop-color="#22c55e" stop-opacity=".68"/>
+          </linearGradient>
+          <linearGradient id="leafG3" x1="0" y1="1" x2="1" y2="0">
+            <stop offset="0%"   stop-color="#86efac" stop-opacity=".80"/>
+            <stop offset="100%" stop-color="#2dd4bf" stop-opacity=".65"/>
+          </linearGradient>
+          <filter id="leafShadow">
+            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#22c55e" flood-opacity=".18"/>
+          </filter>
+        </defs>
+        <path class="stem"
+          d="M82 192 C82 175, 80 158, 82 140 C84 122, 80 104, 82 86 C84 68, 80 50, 82 32"
+          stroke="url(#stemG)" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+        <path class="leaf leaf-1" filter="url(#leafShadow)"
+          d="M82 152 C98 142, 120 146, 126 130 C128 122, 124 116, 118 114 C102 110, 86 126, 82 152Z"
+          fill="url(#leafG1)"/>
+        <path class="leaf leaf-2" filter="url(#leafShadow)"
+          d="M82 128 C66 116, 44 118, 38 102 C36 94, 40 88, 46 86 C62 82, 78 100, 82 128Z"
+          fill="url(#leafG2)"/>
+        <path class="leaf leaf-3" filter="url(#leafShadow)"
+          d="M82 104 C96 92, 116 94, 120 78 C122 70, 118 64, 112 62 C98 58, 84 78, 82 104Z"
+          fill="url(#leafG3)"/>
+        <path class="leaf leaf-4" filter="url(#leafShadow)"
+          d="M82 78 C68 66, 48 68, 44 52 C42 44, 46 38, 52 36 C66 32, 80 52, 82 78Z"
+          fill="url(#leafG1)"/>
+        <path class="leaf leaf-5" filter="url(#leafShadow)"
+          d="M82 46 C78 32, 72 18, 78 8 C80 4, 84 2, 88 4 C96 10, 90 28, 82 46Z"
+          fill="url(#leafG2)"/>
+        <circle class="tip" cx="126" cy="122" r="3.5" fill="#2dd4bf" opacity=".9"/>
+        <circle class="tip" cx="38"  cy="94"  r="3"   fill="#4ade80" opacity=".85"/>
+        <circle class="tip" cx="120" cy="70"  r="3"   fill="#2dd4bf" opacity=".8"/>
+        <circle class="tip" cx="44"  cy="44"  r="2.5" fill="#86efac" opacity=".8"/>
+        <circle class="tip" cx="83"  cy="6"   r="2.5" fill="#4ade80" opacity=".85"/>
+      </svg>
+    </div>
+
+    <!-- Code number -->
+    <div class="code" id="errorCode" role="img" aria-label="Код ошибки 404">404</div>
+
+    <!-- Signal bars (offline state only) -->
+    <div class="signal" id="signal" aria-hidden="true">
+      <div class="signal__bar"></div>
+      <div class="signal__bar"></div>
+      <div class="signal__bar"></div>
+      <div class="signal__bar"></div>
+    </div>
+  </div>
+
+  <!-- Gap between columns on mobile -->
+  <div class="page__gap" aria-hidden="true"></div>
+
+  <!-- RIGHT: text + CTA -->
+  <div class="page__right">
+    <h1 class="title" id="errorTitle">Страница не найдена</h1>
+    <div class="rule" aria-hidden="true"></div>
+    <p class="body-text" id="errorBody">
+      Такой страницы не существует или она была перемещена.
+      Возможно, ссылка устарела — вернитесь на главную.
+    </p>
+    <div class="actions">
+      <a href="index.html" class="btn" id="primaryBtn">
+        <span class="btn-arrow" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M2 8h12M9 3l5 5-5 5" stroke="currentColor"
+                  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        На главную
+      </a>
+    </div>
+  </div>
+
+</main>
+
+<script>
+(function () {
+  /* Theme toggle */
+  document.getElementById('themeBtn').addEventListener('click', function () {
+    var dark = document.documentElement.classList.toggle('dark-theme');
+    localStorage.setItem('eco-theme', dark ? 'dark' : 'light');
+  });
+
+  /* Offline state */
+  if (!navigator.onLine) {
+    document.getElementById('errorCode').textContent = '—';
+    document.getElementById('errorCode').setAttribute('aria-label', 'Нет соединения');
+    document.getElementById('errorTitle').textContent = 'Нет подключения';
+    document.getElementById('errorBody').textContent  =
+      'Проверьте интернет-соединение и попробуйте снова. ' +
+      'Сохранённые страницы доступны в офлайн-режиме.';
+
+    /* Signal animation */
+    var signal = document.getElementById('signal');
+    signal.classList.add('visible');
+    var bars = Array.prototype.slice.call(signal.querySelectorAll('.signal__bar'));
+    var lvl  = 0;
+    setInterval(function () {
+      bars.forEach(function (b, i) { b.classList.toggle('on', i <= lvl); });
+      lvl = (lvl + 1) % (bars.length + 1);
+    }, 480);
+
+    /* Change button to reload */
+    var btn = document.getElementById('primaryBtn');
+    btn.innerHTML =
+      '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">' +
+      '<path d="M1.5 8A6.5 6.5 0 1 0 8 1.5V3" stroke="currentColor" stroke-width="1.8"' +
+      ' stroke-linecap="round" stroke-linejoin="round"/>' +
+      '<path d="M8 1.5 5.5 4h5z" fill="currentColor"/></svg>' +
+      'Попробовать снова';
+    btn.removeAttribute('href');
+    btn.addEventListener('click', function (e) { e.preventDefault(); location.reload(); });
+  }
+
+  /* Auto-redirect on reconnect */
+  window.addEventListener('online', function () { location.href = 'index.html'; });
+
+  /* Floating particles */
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var container = document.getElementById('particles');
+    var colors    = ['#4ade80','#2dd4bf','#86efac','#22c55e'];
+    for (var i = 0; i < 10; i++) {
+      var p    = document.createElement('div');
+      p.className = 'particle';
+      var size  = 3 + Math.random() * 4;
+      var left  = 5 + Math.random() * 90;
+      var bot   = -20 + Math.random() * 60;
+      var dur   = 8  + Math.random() * 12;
+      var delay = Math.random() * 14;
+      var col   = colors[Math.floor(Math.random() * colors.length)];
+      p.style.cssText =
+        'width:' + size + 'px;height:' + size + 'px;' +
+        'left:' + left + '%;bottom:' + bot + 'px;' +
+        'background:' + col + ';' +
+        'animation-duration:' + dur + 's;animation-delay:' + delay + 's;';
+      container.appendChild(p);
+    }
+  }
+})();
+</script>
+</body>
+</html>
